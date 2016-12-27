@@ -7,7 +7,6 @@ package com.hunternichols.message;
 import java.awt.event.ActionListener;
 
 import com.hunternichols.database.dataobjects.Message;
-import com.hunternichols.database.framework.DatabaseController;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -74,10 +73,19 @@ public class MainWindow extends javax.swing.JFrame {
         	}
         });
         jButton2 = new javax.swing.JButton();
+        jButton2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		Message messageObjUpdate = new Message();
+            	String messageUpdate = messageObjUpdate.getRandomMessage();
+            	
+        		jLabel1.setText("<html><p><center>" + messageUpdate + "</p></center> </html>");
+        	}
+        });
+        
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Merry Christmas Me'Lady");
+        setTitle("Merry Christmas Me'Lady, 12/25/2016");
         setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();

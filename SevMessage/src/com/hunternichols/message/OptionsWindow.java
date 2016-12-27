@@ -14,10 +14,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.SwingConstants;
 
 public class OptionsWindow {
 
@@ -110,16 +109,16 @@ public class OptionsWindow {
 		label_2.setBounds(10, 11, 158, 17);
 		frame.getContentPane().add(label_2);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		
+		JLabel lblNewLabel = new JLabel("New label");	
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		lblNewLabel.setBounds(401, 54, 34, 25);
-		lblNewLabel.setText(oc.getProp().getProperty("messageFrequency"));
+		lblNewLabel.setBounds(337, 54, 98, 25);
+		lblNewLabel.setText(oc.getProp().getProperty("messageFrequency") + " minute(s)");
 		
 		lblNewLabel.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
 				
-				oc.getProp().setProperty("messageFrequency", lblNewLabel.getText());
+				oc.getProp().setProperty("messageFrequency", lblNewLabel.getText().substring(0, 3).trim());
 				oc.saveProperties();
 			}
 		});
@@ -127,30 +126,33 @@ public class OptionsWindow {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel label_1 = new JLabel(oc.getProp().getProperty("refreshRate"));
+		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		label_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		label_1.setBounds(401, 125, 34, 25);
-		label_1.setText(oc.getProp().getProperty("refreshRate"));
+		label_1.setBounds(337, 125, 98, 25);
+		label_1.setText(oc.getProp().getProperty("refreshRate") + " minute(s)");
+		
 		label_1.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent arg0) {
+			public void propertyChange(PropertyChangeEvent evt) {
 				
-				oc.getProp().setProperty("refreshRate", lblNewLabel.getText());
+				oc.getProp().setProperty("refreshRate", label_1.getText().substring(0, 3).trim());
 				oc.saveProperties();
 			}
 		});
+		
 		frame.getContentPane().add(label_1);
 		
 		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				
-				lblNewLabel.setText(Integer.toString(slider_1.getValue()));
+				lblNewLabel.setText(Integer.toString(slider_1.getValue())  + " minute(s)");
 			}
 		});
 		
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				
-				label_1.setText(Integer.toString(slider.getValue()));
+				label_1.setText(Integer.toString(slider.getValue())  + " minute(s)");
 			}
 		});
 	}

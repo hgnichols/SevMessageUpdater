@@ -12,6 +12,11 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class DevWindow {
 
@@ -45,6 +50,7 @@ public class DevWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		OptionsController oc = new OptionsController();
 		frame = new JFrame();
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int width = gd.getDisplayMode().getWidth();
@@ -54,6 +60,14 @@ public class DevWindow {
 		frame.getContentPane().setLayout(null);
 		
 		JButton button = new JButton();
+		button.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		
 		button.setText("Update Heading");
 		button.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		button.setBounds(155, 248, 123, 25);
@@ -88,6 +102,48 @@ public class DevWindow {
 		label.setFont(new Font("Microsoft Yi Baiti", Font.BOLD, 21));
 		label.setBounds(10, 11, 857, 25);
 		frame.getContentPane().add(label);
+		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setWrapStyleWord(true);
+		textArea_1.setText("Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. Y");
+		textArea_1.setRows(5);
+		textArea_1.setLineWrap(true);
+		textArea_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 14));
+		textArea_1.setColumns(20);
+		textArea_1.setBounds(484, 77, 333, 84);
+		frame.getContentPane().add(textArea_1);
+		
+		JButton btnSendMessage = new JButton();
+		btnSendMessage.setText("Send Message");
+		btnSendMessage.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		btnSendMessage.setBounds(598, 174, 111, 25);
+		frame.getContentPane().add(btnSendMessage);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("DevMode");
+		
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean selected = chckbxNewCheckBox.isSelected();
+				if(selected) {
+					
+					oc.getProp().setProperty("devMode", "true");
+					oc.saveProperties();
+					System.exit(0);
+				} else {
+					
+					oc.getProp().setProperty("devMode", "false");
+					oc.saveProperties();
+					System.exit(0);
+				}
+				
+			}
+		});
+		
+		chckbxNewCheckBox.setBackground(UIManager.getColor("Button.background"));
+		chckbxNewCheckBox.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 18));
+		chckbxNewCheckBox.setBounds(786, 328, 81, 23);
+		chckbxNewCheckBox.setSelected(Boolean.valueOf(oc.getProp().getProperty("devMode")));
+		frame.getContentPane().add(chckbxNewCheckBox);
 	}
-
 }

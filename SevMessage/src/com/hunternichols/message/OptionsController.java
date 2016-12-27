@@ -50,6 +50,8 @@ public class OptionsController {
 				bw.write("messageFrequency = 30");
 				bw.newLine();
 				bw.write("refreshRate = 30");
+				bw.newLine();
+				bw.write("devMode=false");
 			} catch (IOException e) {
 
 				e.printStackTrace();
