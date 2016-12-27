@@ -14,6 +14,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class OptionsWindow {
 
@@ -76,9 +80,14 @@ public class OptionsWindow {
 		label.setBounds(10, 145, 204, 17);
 		frame.getContentPane().add(label);
 		
+		OptionsController oc = new OptionsController();
+		
 		JSlider slider = new JSlider();
 		slider.setBounds(10, 101, 430, 33);
 		slider.setPaintTicks(true);
+		slider.setMaximum(300);
+		slider.setMinimum(1);
+		slider.setValue(Integer.parseInt(oc.getProp().getProperty("refreshRate")));
 		frame.getContentPane().add(slider);
 		
 		JLabel lblBackgroundRefreshRate = new JLabel();
@@ -90,7 +99,10 @@ public class OptionsWindow {
 		JSlider slider_1 = new JSlider();
 		slider_1.setToolTipText("");	
 		slider_1.setBounds(10, 30, 430, 33);
-		frame.getContentPane().add(slider_1);		
+		slider_1.setMaximum(300);
+		slider_1.setMinimum(1);
+		slider_1.setValue(Integer.parseInt(oc.getProp().getProperty("messageFrequency")));
+		frame.getContentPane().add(slider_1);	
 		
 		JLabel label_2 = new JLabel();
 		label_2.setText("New Message Frequency");
@@ -99,14 +111,33 @@ public class OptionsWindow {
 		frame.getContentPane().add(label_2);
 		
 		JLabel lblNewLabel = new JLabel("New label");
+		
 		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
 		lblNewLabel.setBounds(401, 54, 34, 25);
-		lblNewLabel.setText("100");
+		lblNewLabel.setText(oc.getProp().getProperty("messageFrequency"));
+		
+		lblNewLabel.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				
+				oc.getProp().setProperty("messageFrequency", lblNewLabel.getText());
+				oc.saveProperties();
+			}
+		});
+		
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel label_1 = new JLabel("100");
+		JLabel label_1 = new JLabel(oc.getProp().getProperty("refreshRate"));
+		
 		label_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
 		label_1.setBounds(401, 125, 34, 25);
+		label_1.setText(oc.getProp().getProperty("refreshRate"));
+		label_1.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				
+				oc.getProp().setProperty("refreshRate", lblNewLabel.getText());
+				oc.saveProperties();
+			}
+		});
 		frame.getContentPane().add(label_1);
 		
 		slider_1.addChangeListener(new ChangeListener() {

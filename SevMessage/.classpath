@@ -12,5 +12,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/SevMessage/lib/jgoodies-common-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Documents/CodingProjects/sqljdbc_4.0/enu/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

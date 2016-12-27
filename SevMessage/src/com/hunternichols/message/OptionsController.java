@@ -2,6 +2,9 @@ package com.hunternichols.message;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,6 +46,10 @@ public class OptionsController {
 				fw = new FileWriter(configFileName);
 				bw = new BufferedWriter(fw);
 				bw.write("initBoot = true");
+				bw.newLine();
+				bw.write("messageFrequency = 30");
+				bw.newLine();
+				bw.write("refreshRate = 30");
 			} catch (IOException e) {
 
 				e.printStackTrace();
@@ -62,9 +69,14 @@ public class OptionsController {
 		}
 
 		Properties prop = new Properties();
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(configFileName);
+		InputStream inputStream = null;
 		try {
-			System.out.println(configFileName);
+			inputStream = new FileInputStream(configFileName);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
 			prop.load(inputStream);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -72,6 +84,29 @@ public class OptionsController {
 		}
 
 		return prop;
+	}
+	
+	public void saveProperties() {
+		
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(configFileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			this.getProp().store(out, "---No Comment---");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Properties getProp() {
@@ -89,4 +124,5 @@ public class OptionsController {
 	public String getConfigFileName() {
 		return configFileName;
 	}
+	
 }

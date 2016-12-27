@@ -12,6 +12,8 @@ public interface DatabaseConstants {
 	public static final String SP_UPDATE_SERVICE = "procUpdateService";
 	public static final String SP_DELETE_SERVICE = "procDeleteService";
 	public static final String SP_GET_SERVICE_BY_SERVICE_ID = "procGetServiceByServiceID";
+	public static final String SP_GET_MESSAGE_BY_ID = "procGetMessageByID";
+	public static final String SP_GET_NUMBER_OF_MESSAGES = "procGetNumberOfMessages";
 	
 	//COLUMN NAMES
 	public static final String COLUMN_VEHICLE_ID = "VehicleID";
@@ -22,7 +24,9 @@ public interface DatabaseConstants {
 	public static final String COLUMN_SERVICE_NAME = "ServiceName";
 	public static final String COLUMN_SERVICE_ALLOTTED_TIME = "AllottedTime";
 	public static final String COLUMN_SERVICE_COST = "Cost";
-
+	public static final String COLUMN_MESSAGEBANK_NUMBER = "Number";
+	public static final String COLUMN_MESSAGEBANK_MESSAGE = "Message";
+	
 	//PARAMETER NAMES
 	public static final String PARAM_LOW_VALUE = "LowVal";
 	public static final String PARAM_HIGH_VALUE = "HighVal";

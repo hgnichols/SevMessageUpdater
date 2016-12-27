@@ -5,6 +5,10 @@
  */
 package com.hunternichols.message;
 import java.awt.event.ActionListener;
+
+import com.hunternichols.database.dataobjects.Message;
+import com.hunternichols.database.framework.DatabaseController;
+
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
@@ -58,6 +62,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
     public void initComponents() {
 
+    	Message messageObj = new Message();
+    	String message = messageObj.getRandomMessage();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton1.addActionListener(new ActionListener() {
@@ -81,7 +87,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         jLabel1.setFont(new java.awt.Font("Microsoft Yi Baiti", 0, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html><p><center>Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. Y</p></center> </html>");
+        jLabel1.setText("<html><p><center>" + message + "</p></center> </html>");
         jLabel1.setToolTipText("");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
