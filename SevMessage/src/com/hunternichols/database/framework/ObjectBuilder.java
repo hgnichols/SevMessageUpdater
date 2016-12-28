@@ -2,6 +2,7 @@ package com.hunternichols.database.framework;
 
 import com.hunternichols.database.dataobjects.Customer;
 import com.hunternichols.database.dataobjects.Message;
+import com.hunternichols.database.dataobjects.Update;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,5 +45,18 @@ public class ObjectBuilder {
 			e.printStackTrace();
 		}
 		return m;
+	}
+	
+	public Update createUpdate(ResultSet rs) {
+		Update u = null;
+		try {
+			int sendMessage = rs.getInt(DatabaseConstants.COLUMN_UPDATES_SEND_MESSAGE);
+			int UpdateMessages = rs.getInt(DatabaseConstants.COLUMN_UPDATES_UPDATE_MESSAGES);
+			int headingUpdate = rs.getInt(DatabaseConstants.COLUMN_UPDATES_HEADING_UPDATE);
+			u = new Update(sendMessage, UpdateMessages, headingUpdate);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 }

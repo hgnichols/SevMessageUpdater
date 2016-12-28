@@ -18,6 +18,9 @@ import javax.swing.JCheckBox;
 import java.awt.Color;
 import javax.swing.UIManager;
 
+import com.hunternichols.database.dataobjects.Message;
+import com.hunternichols.database.framework.DatabaseController;
+
 public class DevWindow {
 
 	JFrame frame;
@@ -56,6 +59,7 @@ public class DevWindow {
 		int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
 		frame.setBounds((width / 3) - 200, (height / 3) - 200, 889, 397);
+		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -81,14 +85,32 @@ public class DevWindow {
 		frame.getContentPane().add(textField);
 		
 		JButton button_1 = new JButton();
+		JTextArea textArea = new JTextArea();
+		
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DatabaseController dbc = DatabaseController.getDBController();
+				String messageText = textArea.getText().trim();
+				if(messageText.length() > 200) {
+					
+					textArea.setText("ERROR! TOO MANY CHARACTERS: " + messageText);
+				} else {
+					
+					Message message = new Message(dbc.getNumberOfMessages().getNumber() + 1, messageText);
+					textArea.setText("CHANGED TOO: " + messageText);
+					dbc.addMessage(message);
+				}
+			}
+		});
+		
 		button_1.setText("Add Message");
 		button_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		button_1.setBounds(166, 174, 103, 25);
+		button_1.setBounds(166, 174, 112, 25);
 		frame.getContentPane().add(button_1);
 		
-		JTextArea textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
-		textArea.setText("Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. Y");
+		textArea.setText("");
 		textArea.setRows(5);
 		textArea.setLineWrap(true);
 		textArea.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 14));
@@ -116,7 +138,7 @@ public class DevWindow {
 		JButton btnSendMessage = new JButton();
 		btnSendMessage.setText("Send Message");
 		btnSendMessage.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		btnSendMessage.setBounds(598, 174, 111, 25);
+		btnSendMessage.setBounds(598, 174, 123, 25);
 		frame.getContentPane().add(btnSendMessage);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("DevMode");
