@@ -1,7 +1,10 @@
 package com.hunternichols.database.framework;
 
 import com.hunternichols.database.dataobjects.Customer;
+import com.hunternichols.database.dataobjects.Heading;
+import com.hunternichols.database.dataobjects.MessPoolSeed;
 import com.hunternichols.database.dataobjects.Message;
+import com.hunternichols.database.dataobjects.SendMessage;
 import com.hunternichols.database.dataobjects.Update;
 
 import java.sql.ResultSet;
@@ -58,5 +61,39 @@ public class ObjectBuilder {
 			e.printStackTrace();
 		}
 		return u;
+	}
+	
+	public Heading createHeading(ResultSet rs) {
+		Heading h = null;
+		try {
+			String headingMessage = rs.getString(DatabaseConstants.COLUMN_HEADING_HEADINGMESSAGE);
+			h = new Heading(headingMessage);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return h;
+	}
+	
+	public SendMessage createSendMessage(ResultSet rs) {
+		SendMessage s = null;
+		try {
+			String sentMessage = rs.getString(DatabaseConstants.COLUMN_SENDMESSAGE_SENTMESSAGE);
+			s = new SendMessage(sentMessage);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	public MessPoolSeed createMessPoolSeed(ResultSet rs) {
+		MessPoolSeed m = null;
+		try {
+			int start = rs.getInt(DatabaseConstants.COLUMN_MESSPOOLSEED_START);
+			String ending = rs.getString(DatabaseConstants.COLUMN_MESSPOOLSEED_ENDING);
+			m = new MessPoolSeed(start, ending);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return m;
 	}
 }

@@ -13,18 +13,25 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
-import java.awt.Color;
 import javax.swing.UIManager;
 
+import com.hunternichols.database.dataobjects.Heading;
+import com.hunternichols.database.dataobjects.MessPoolSeed;
 import com.hunternichols.database.dataobjects.Message;
+import com.hunternichols.database.dataobjects.SendMessage;
+import com.hunternichols.database.dataobjects.Update;
 import com.hunternichols.database.framework.DatabaseController;
+import java.util.List;
 
 public class DevWindow {
 
 	JFrame frame;
 	private JTextField textField;
+	private JTextField txtend;
 
 	/**
 	 * Launch the application.
@@ -54,61 +61,74 @@ public class DevWindow {
 	 */
 	private void initialize() {
 		OptionsController oc = new OptionsController();
+		DatabaseController dbc = DatabaseController.getDBController();
 		frame = new JFrame();
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int width = gd.getDisplayMode().getWidth();
-        int height = gd.getDisplayMode().getHeight();
+		int height = gd.getDisplayMode().getHeight();
 		frame.setBounds((width / 3) - 200, (height / 3) - 200, 889, 397);
-		
+
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JButton button = new JButton();
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
+				String heading = textField.getText().trim();
+
+				if (heading.length() > 50) {
+
+					textField.setText("ERROR TOO MANY CHARACTERS! " + heading);
+				} else {
+
+					textField.setText("SENT SUCESSFULLY! " + heading);
+					Update update = dbc.getUpdate();
+					dbc.updateUpdate(new Update(update.getSendMessage(), update.getUpdateMessages(), 1));
+					dbc.updateHeading(new Heading(heading));
+
+				}
 			}
 		});
-		
+
 		button.setText("Update Heading");
 		button.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		button.setBounds(155, 248, 123, 25);
+		button.setBounds(166, 248, 123, 25);
 		frame.getContentPane().add(button);
-		
+
 		textField = new JTextField();
-		textField.setText("Saw yet kindness too replying whatever marianne. O");
+		textField.setText("");
 		textField.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 14));
 		textField.setColumns(10);
-		textField.setBounds(82, 210, 276, 30);
+		textField.setBounds(22, 210, 411, 30);
 		frame.getContentPane().add(textField);
-		
+
 		JButton button_1 = new JButton();
 		JTextArea textArea = new JTextArea();
-		
+
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				DatabaseController dbc = DatabaseController.getDBController();
 				String messageText = textArea.getText().trim();
-				if(messageText.length() > 200) {
-					
+				if (messageText.length() > 200) {
+
 					textArea.setText("ERROR! TOO MANY CHARACTERS: " + messageText);
 				} else {
-					
+
 					Message message = new Message(dbc.getNumberOfMessages().getNumber() + 1, messageText);
 					textArea.setText("CHANGED TOO: " + messageText);
 					dbc.addMessage(message);
 				}
 			}
 		});
-		
+
 		button_1.setText("Add Message");
 		button_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		button_1.setBounds(166, 174, 112, 25);
 		frame.getContentPane().add(button_1);
-		
+
 		textArea.setWrapStyleWord(true);
 		textArea.setText("");
 		textArea.setRows(5);
@@ -117,55 +137,127 @@ public class DevWindow {
 		textArea.setColumns(20);
 		textArea.setBounds(62, 78, 333, 84);
 		frame.getContentPane().add(textArea);
-		
+
 		JLabel label = new JLabel();
 		label.setText("Ashlee if you somehow find yourself here, just exit out or you Could Fuck Everything Up!");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Microsoft Yi Baiti", Font.BOLD, 21));
 		label.setBounds(10, 11, 857, 25);
 		frame.getContentPane().add(label);
-		
+
 		JTextArea textArea_1 = new JTextArea();
 		textArea_1.setWrapStyleWord(true);
-		textArea_1.setText("Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. Y");
+		textArea_1.setText("");
 		textArea_1.setRows(5);
 		textArea_1.setLineWrap(true);
 		textArea_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 14));
 		textArea_1.setColumns(20);
 		textArea_1.setBounds(484, 77, 333, 84);
 		frame.getContentPane().add(textArea_1);
-		
+
 		JButton btnSendMessage = new JButton();
+
+		btnSendMessage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String sentMessage = textArea_1.getText().trim();
+
+				if (sentMessage.length() > 200) {
+
+					textArea_1.setText("ERROR TOO MANY CHARACTERS! " + sentMessage);
+				} else {
+
+					textArea_1.setText("SENT SUCESSFULLY! " + sentMessage);
+					dbc.updateSendMessage(new SendMessage(sentMessage));
+					Update update = dbc.getUpdate();
+					dbc.updateUpdate(new Update(1, update.getUpdateMessages(), update.getHeadingUpdate()));
+
+				}
+
+			}
+		});
+
 		btnSendMessage.setText("Send Message");
 		btnSendMessage.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		btnSendMessage.setBounds(598, 174, 123, 25);
 		frame.getContentPane().add(btnSendMessage);
-		
+
 		JCheckBox chckbxNewCheckBox = new JCheckBox("DevMode");
-		
+
 		chckbxNewCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				boolean selected = chckbxNewCheckBox.isSelected();
-				if(selected) {
-					
+				if (selected) {
+
 					oc.getProp().setProperty("devMode", "true");
 					oc.saveProperties();
 					System.exit(0);
 				} else {
-					
+
 					oc.getProp().setProperty("devMode", "false");
 					oc.saveProperties();
 					System.exit(0);
 				}
-				
+
 			}
 		});
-		
+
 		chckbxNewCheckBox.setBackground(UIManager.getColor("Button.background"));
 		chckbxNewCheckBox.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 18));
 		chckbxNewCheckBox.setBounds(786, 328, 81, 23);
 		chckbxNewCheckBox.setSelected(Boolean.valueOf(oc.getProp().getProperty("devMode")));
 		frame.getContentPane().add(chckbxNewCheckBox);
+
+		JButton btnNewButton = new JButton("Force Update");
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dbc.updateUpdate(new Update(0 , 1, 1));
+			}
+		});
+		
+		btnNewButton.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		btnNewButton.setBounds(666, 329, 103, 23);
+		frame.getContentPane().add(btnNewButton);
+
+		txtend = new JTextField();
+		txtend.setText("");
+		txtend.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		txtend.setBounds(482, 228, 132, 30);
+		frame.getContentPane().add(txtend);
+		txtend.setColumns(10);
+
+		JButton btnNewButton_1 = new JButton("Update Message Pool");
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String seed = txtend.getText().trim();
+				List<String> list =  Arrays.asList(seed.split(","));
+				String start = list.get(0).trim();
+				String ending = list.get(1).trim();
+				
+				if((Pattern.matches("[0-9]+", start)) && (Pattern.matches("[0-9]+", ending) || ending.equals("end"))) {
+					
+					txtend.setText(seed + " Success!");
+					dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
+				} else {
+					
+					txtend.setText(seed + " BAD FORMAT!");
+				}
+				
+			}
+		});
+		
+		btnNewButton_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		btnNewButton_1.setBounds(484, 261, 149, 23);
+		frame.getContentPane().add(btnNewButton_1);
+
+		JLabel lblNewLabel = new JLabel("(\"end\" for last message, ex. 1,end)");
+		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		lblNewLabel.setBounds(624, 234, 205, 17);
+		frame.getContentPane().add(lblNewLabel);
 	}
 }

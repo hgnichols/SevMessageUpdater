@@ -16,6 +16,13 @@ public interface DatabaseConstants {
 	public static final String SP_GET_NUMBER_OF_MESSAGES = "procGetNumberOfMessages";
 	public static final String SP_ADD_MESSAGE = "procAddMessage";
 	public static final String SP_UPDATE_UPDATES = "procUpdateUpdates";
+	public static final String SP_GET_UPDATES = "procGetUpdates";
+	public static final String SP_GET_HEADING = "procGetHeading";
+	public static final String SP_UPDATE_HEADING = "procUpdateHeading";
+	public static final String SP_GET_SENDMESSAGE = "procGetSendMessage";
+	public static final String SP_UPDATE_SENDMESSAGE = "procUpdateSendMessage";
+	public static final String SP_GET_MESSPOOLSEED = "procGetMessPoolSeed";
+	public static final String SP_UPDATE_MESSPOOLSEED = "procUpdateMessPoolSeed";
 	
 	//COLUMN NAMES
 	public static final String COLUMN_VEHICLE_ID = "VehicleID";
@@ -31,6 +38,14 @@ public interface DatabaseConstants {
 	public static final String COLUMN_UPDATES_SEND_MESSAGE = "SendMessage";
 	public static final String COLUMN_UPDATES_UPDATE_MESSAGES = "UpdateMessages";
 	public static final String COLUMN_UPDATES_HEADING_UPDATE = "HeadingUpdate";
+	public static final String COLUMN_UPDATES_ID = "ID";
+	public static final String COLUMN_HEADING_ID = "ID";
+	public static final String COLUMN_HEADING_HEADINGMESSAGE = "HeadingMessage";
+	public static final String COLUMN_SENDMESSAGE_ID = "ID";
+	public static final String COLUMN_SENDMESSAGE_SENTMESSAGE = "SentMessage";
+	public static final String COLUMN_MESSPOOLSEED_ID = "ID";
+	public static final String COLUMN_MESSPOOLSEED_START = "Start";
+	public static final String COLUMN_MESSPOOLSEED_ENDING = "Ending";
 	
 	//PARAMETER NAMES
 	public static final String PARAM_LOW_VALUE = "LowVal";

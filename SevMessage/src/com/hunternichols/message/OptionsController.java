@@ -17,6 +17,7 @@ public class OptionsController {
 	private final String configFileDir = System.getProperty("user.home") + File.separator + "Documents" + File.separator
 			+ "SevMessageConfig";
 	Properties prop;
+	private final String version = "0.04";
 
 	public OptionsController() {
 
@@ -28,46 +29,7 @@ public class OptionsController {
 
 		if (!file.exists()) {
 
-			File dir = new File(configFileDir);
-
-			dir.mkdirs();
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			BufferedWriter bw = null;
-			FileWriter fw = null;
-
-			try {
-
-				fw = new FileWriter(configFileName);
-				bw = new BufferedWriter(fw);
-				bw.write("initBoot = true");
-				bw.newLine();
-				bw.write("messageFrequency = 30");
-				bw.newLine();
-				bw.write("refreshRate = 30");
-				bw.newLine();
-				bw.write("devMode=false");
-			} catch (IOException e) {
-
-				e.printStackTrace();
-			} finally {
-				try {
-
-					if (bw != null)
-						bw.close();
-
-					if (fw != null)
-						fw.close();
-				} catch (IOException ex) {
-
-					ex.printStackTrace();
-				}
-			}
+			createProp();
 		}
 
 		Properties prop = new Properties();
@@ -85,11 +47,65 @@ public class OptionsController {
 			e.printStackTrace();
 		}
 
+		if(!prop.getProperty("version").equals(version)) {
+			
+			deleteProperties();
+			createProp();
+		}
+		
 		return prop;
 	}
-	
-	public void saveProperties() {
+
+	private void createProp() {
 		
+		File file = new File(configFileName);
+		File dir = new File(configFileDir);
+
+		dir.mkdirs();
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+
+			fw = new FileWriter(configFileName);
+			bw = new BufferedWriter(fw);
+			bw.write("version=" + version);
+			bw.newLine();
+			bw.write("initBoot = true");
+			bw.newLine();
+			bw.write("messageFrequency=30");
+			bw.newLine();
+			bw.write("refreshRate=30");
+			bw.newLine();
+			bw.write("devMode=false");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} finally {
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+			}
+		}
+		
+	}
+
+	public void saveProperties() {
+
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(configFileName);
@@ -110,21 +126,37 @@ public class OptionsController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void deleteProperties() {
+
+		try {
+
+			File file = new File(configFileName);
+			file.delete();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
 	public Properties getProp() {
 		return prop;
 	}
-	
+
 	public void setProp(Properties prop) {
 		this.prop = prop;
 	}
-	
+
 	public String getConfigFileDir() {
 		return configFileDir;
 	}
-	
+
 	public String getConfigFileName() {
 		return configFileName;
 	}
-	
+
+	public String getVersion() {
+		return version;
+	}
+
 }

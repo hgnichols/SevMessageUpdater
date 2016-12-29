@@ -7,6 +7,7 @@ package com.hunternichols.message;
 import java.awt.event.ActionListener;
 
 import com.hunternichols.database.dataobjects.Message;
+import com.hunternichols.database.framework.DatabaseController;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -63,6 +64,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     	Message messageObj = new Message();
     	String message = messageObj.getRandomMessage();
+    	DatabaseController dbc = DatabaseController.getDBController();
+    	
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton1.addActionListener(new ActionListener() {
@@ -85,7 +88,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Merry Christmas Me'Lady, 12/25/2016");
+        setTitle("I just plain out love you");
         setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -107,7 +110,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Microsoft Yi Baiti", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Saw yet kindness too replying whatever marianne. O");
+        jLabel2.setText(dbc.getHeading().getHeading());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
