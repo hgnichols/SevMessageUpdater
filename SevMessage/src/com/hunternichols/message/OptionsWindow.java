@@ -17,6 +17,8 @@ import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
 
 public class OptionsWindow {
 
@@ -54,7 +56,7 @@ public class OptionsWindow {
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
-		frame.setBounds(width / 3, height / 3, 461, 248);
+		frame.setBounds(width / 3, height / 3, 461, 293);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -70,13 +72,13 @@ public class OptionsWindow {
 				}
 			}
 		});
-		textField.setBounds(10, 167, 430, 31);
+		textField.setBounds(10, 215, 430, 31);
 		frame.getContentPane().add(textField);
 		
 		JLabel label = new JLabel();
 		label.setText("Command Line (Dev Use Only)");
 		label.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		label.setBounds(10, 145, 204, 17);
+		label.setBounds(10, 195, 204, 17);
 		frame.getContentPane().add(label);
 		
 		OptionsController oc = new OptionsController();
@@ -141,6 +143,16 @@ public class OptionsWindow {
 		});
 		
 		frame.getContentPane().add(label_1);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Start On Start Up");
+		chckbxNewCheckBox.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		chckbxNewCheckBox.setBounds(312, 161, 123, 23);
+		frame.getContentPane().add(chckbxNewCheckBox);
+		
+		JButton btnNewButton = new JButton("Exit Without Refresh");
+		btnNewButton.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		btnNewButton.setBounds(10, 161, 143, 23);
+		frame.getContentPane().add(btnNewButton);
 		
 		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {

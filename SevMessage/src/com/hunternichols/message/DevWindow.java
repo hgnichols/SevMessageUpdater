@@ -26,6 +26,7 @@ import com.hunternichols.database.dataobjects.SendMessage;
 import com.hunternichols.database.dataobjects.Update;
 import com.hunternichols.database.framework.DatabaseController;
 import java.util.List;
+import java.awt.Color;
 
 public class DevWindow {
 
@@ -94,14 +95,14 @@ public class DevWindow {
 
 		button.setText("Update Heading");
 		button.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		button.setBounds(166, 248, 123, 25);
+		button.setBounds(166, 269, 123, 25);
 		frame.getContentPane().add(button);
 
 		textField = new JTextField();
 		textField.setText("");
 		textField.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 14));
 		textField.setColumns(10);
-		textField.setBounds(22, 210, 411, 30);
+		textField.setBounds(22, 228, 411, 30);
 		frame.getContentPane().add(textField);
 
 		JButton button_1 = new JButton();
@@ -225,7 +226,7 @@ public class DevWindow {
 		txtend = new JTextField();
 		txtend.setText("");
 		txtend.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		txtend.setBounds(482, 228, 132, 30);
+		txtend.setBounds(482, 228, 151, 30);
 		frame.getContentPane().add(txtend);
 		txtend.setColumns(10);
 
@@ -252,12 +253,18 @@ public class DevWindow {
 		});
 		
 		btnNewButton_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(484, 261, 149, 23);
+		btnNewButton_1.setBounds(484, 270, 149, 23);
 		frame.getContentPane().add(btnNewButton_1);
 
 		JLabel lblNewLabel = new JLabel("(\"end\" for last message, ex. 1,end)");
 		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		lblNewLabel.setBounds(624, 234, 205, 17);
+		lblNewLabel.setBounds(633, 234, 205, 17);
 		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnNewButton_2 = new JButton("Drop Nukes");
+		btnNewButton_2.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		btnNewButton_2.setForeground(Color.RED);
+		btnNewButton_2.setBounds(546, 329, 103, 23);
+		frame.getContentPane().add(btnNewButton_2);
 	}
 }

@@ -17,7 +17,7 @@ public class OptionsController {
 	private final String configFileDir = System.getProperty("user.home") + File.separator + "Documents" + File.separator
 			+ "SevMessageConfig";
 	Properties prop;
-	private final String version = "0.04";
+	private final String version = "0.05";
 
 	public OptionsController() {
 
@@ -78,7 +78,9 @@ public class OptionsController {
 			bw = new BufferedWriter(fw);
 			bw.write("version=" + version);
 			bw.newLine();
-			bw.write("initBoot = true");
+			bw.write("initBoot=true");
+			bw.newLine();			
+			bw.write("startOnStartUp=true");
 			bw.newLine();
 			bw.write("messageFrequency=30");
 			bw.newLine();
