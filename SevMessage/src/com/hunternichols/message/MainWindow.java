@@ -90,7 +90,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("I just plain out love you");
         setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);

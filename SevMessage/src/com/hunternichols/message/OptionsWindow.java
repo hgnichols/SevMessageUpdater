@@ -114,8 +114,8 @@ public class OptionsWindow {
 		JLabel lblNewLabel = new JLabel("New label");	
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		lblNewLabel.setBounds(337, 54, 98, 25);
-		lblNewLabel.setText(oc.getProp().getProperty("messageFrequency") + " minute(s)");
+		lblNewLabel.setBounds(317, 54, 123, 25);
+		lblNewLabel.setText(oc.getProp().getProperty("messageFrequency") + "  minute(s)");
 		
 		lblNewLabel.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
@@ -131,8 +131,8 @@ public class OptionsWindow {
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		label_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		label_1.setBounds(337, 125, 98, 25);
-		label_1.setText(oc.getProp().getProperty("refreshRate") + " minute(s)");
+		label_1.setBounds(317, 129, 123, 25);
+		label_1.setText(oc.getProp().getProperty("refreshRate") + "  minute(s)");
 		
 		label_1.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -145,26 +145,53 @@ public class OptionsWindow {
 		frame.getContentPane().add(label_1);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Start On Start Up");
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean selected = chckbxNewCheckBox.isSelected();
+				
+				oc.getProp().setProperty("startOnStartUp", Boolean.toString(selected));
+				oc.saveProperties();
+			}
+		});
 		chckbxNewCheckBox.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		chckbxNewCheckBox.setBounds(312, 161, 123, 23);
+		chckbxNewCheckBox.setSelected(Boolean.valueOf(oc.getProp().getProperty("startOnStartUp")));
 		frame.getContentPane().add(chckbxNewCheckBox);
 		
 		JButton btnNewButton = new JButton("Exit Without Refresh");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				System.exit(0);
+			}
+		});
 		btnNewButton.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		btnNewButton.setBounds(10, 161, 143, 23);
 		frame.getContentPane().add(btnNewButton);
 		
+		JButton btnNewButton_1 = new JButton("Help");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				InstructionWindow iWindow = new InstructionWindow();
+				iWindow.setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(200, 163, 65, 23);
+		frame.getContentPane().add(btnNewButton_1);
+		
 		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				
-				lblNewLabel.setText(Integer.toString(slider_1.getValue())  + " minute(s)");
+				lblNewLabel.setText(Integer.toString(slider_1.getValue())  + "  minute(s)");
 			}
 		});
 		
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				
-				label_1.setText(Integer.toString(slider.getValue())  + " minute(s)");
+				label_1.setText(Integer.toString(slider.getValue())  + "  minute(s)");
 			}
 		});
 	}

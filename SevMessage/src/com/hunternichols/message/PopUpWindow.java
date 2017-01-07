@@ -43,7 +43,7 @@ public class PopUpWindow extends JFrame {
 		
 		DatabaseController dbc = DatabaseController.getDBController();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 470, 211);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -52,7 +52,7 @@ public class PopUpWindow extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Message From Your Favorite Person:");
 		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.BOLD, 20));
-		lblNewLabel.setBounds(58, 11, 304, 37);
+		lblNewLabel.setBounds(70, 11, 304, 37);
 		contentPane.add(lblNewLabel);
 		
 		JLabel label = new JLabel();
