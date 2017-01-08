@@ -1,6 +1,5 @@
 package com.hunternichols.message;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -11,10 +10,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class InstructionWindow extends JFrame {
 
 	private JPanel contentPane;

@@ -1,6 +1,5 @@
 package com.hunternichols.message;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,8 +10,6 @@ import com.hunternichols.database.framework.DatabaseController;
 
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")

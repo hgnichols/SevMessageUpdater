@@ -262,6 +262,13 @@ public class DevWindow {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton_2 = new JButton("Drop Nukes");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				TheNukeWindow frame = new TheNukeWindow();
+				frame.setVisible(true);
+			}
+		});
 		btnNewButton_2.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		btnNewButton_2.setForeground(Color.RED);
 		btnNewButton_2.setBounds(546, 329, 103, 23);

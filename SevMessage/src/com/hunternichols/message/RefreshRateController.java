@@ -15,24 +15,22 @@ public class RefreshRateController implements Runnable {
 		dbc = DatabaseController.getDBController();
 		threadName = name;
 		oc = new OptionsController();
-		System.out.println("Creating " + threadName);
 	}
 
 	@Override
 	public void run() {
-		System.out.println("Running " + threadName);
 		boolean on = true;
 
 		while (on) {
 
 			Update checker = dbc.getUpdate();
-			System.out.println(checker);
 			if (checker.getSendMessage() == 1) {
 
 				PopUpWindow popUp = new PopUpWindow();
 				popUp.setVisible(true);
 				checker.setSendMessage(0);
 				dbc.updateUpdate(checker);
+
 			}
 
 			try {
@@ -44,7 +42,6 @@ public class RefreshRateController implements Runnable {
 	}
 
 	public void start() {
-		System.out.println("Starting " + threadName);
 
 		if (t == null) {
 			t = new Thread(this, threadName);
