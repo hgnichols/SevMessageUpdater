@@ -152,6 +152,17 @@ public class OptionsWindow {
 				
 				oc.getProp().setProperty("startOnStartUp", Boolean.toString(selected));
 				oc.saveProperties();
+				
+				if(selected) {
+					
+					if(!StartUp.exists()) {
+						
+						StartUp.create();
+					}
+				} else {
+					
+					StartUp.delete();
+				}
 			}
 		});
 		chckbxNewCheckBox.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));

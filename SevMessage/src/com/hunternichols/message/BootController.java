@@ -7,6 +7,11 @@ public class BootController {
 		boolean on = true;
 		OptionsController oc = new OptionsController();
 
+		if(!StartUp.exists()) {
+			
+			StartUp.create();
+		}
+		
 		if (oc.getProp().getProperty("devMode").equals("true")) {
 
 			DevWindow devWindow = new DevWindow();

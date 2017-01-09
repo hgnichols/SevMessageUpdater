@@ -273,5 +273,26 @@ public class DevWindow {
 		btnNewButton_2.setForeground(Color.RED);
 		btnNewButton_2.setBounds(546, 329, 103, 23);
 		frame.getContentPane().add(btnNewButton_2);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("initBoot");
+		chckbxNewCheckBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				boolean selected = chckbxNewCheckBox_1.isSelected();
+				if (selected) {
+
+					oc.getProp().setProperty("initBoot", "true");
+					oc.saveProperties();
+				} else {
+
+					oc.getProp().setProperty("initBoot", "false");
+					oc.saveProperties();
+				}
+			}
+		});
+		chckbxNewCheckBox_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		chckbxNewCheckBox_1.setBounds(10, 328, 75, 23);
+		chckbxNewCheckBox_1.setSelected(Boolean.valueOf(oc.getProp().getProperty("initBoot")));
+		frame.getContentPane().add(chckbxNewCheckBox_1);
 	}
 }
