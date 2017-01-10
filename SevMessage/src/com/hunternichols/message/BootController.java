@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import com.hunternichols.database.framework.DatabaseController;
 
@@ -18,9 +21,19 @@ public class BootController {
 	public static void main(String args[]) {
 
 		OptionsController oc = new OptionsController();
-		@SuppressWarnings("unused")
 		DatabaseController testsConnection = DatabaseController.getDBController();
-		
+		try {
+
+			@SuppressWarnings("unused")
+			Connection conn = DriverManager.getConnection(testsConnection.buildConnectionString());
+			oc.getProp().setProperty("offlineMode", "false");
+			oc.saveProperties();
+		} catch (SQLException e) {
+
+			oc.getProp().setProperty("offlineMode", "true");
+			oc.saveProperties();
+		}
+
 		if (!StartUp.exists()) {
 
 			StartUp.create();

@@ -10,74 +10,69 @@ public class Message {
 	private int number;
 	private String message;
 	public DatabaseController dbc = null;
-	
+
 	public Message() {
-		
+
 		number = 1;
 		message = "Message Not Initialized";
 	}
-	
+
 	public Message(int aNumber, String aMessage) {
-		
+
 		number = aNumber;
 		message = aMessage;
 	}
-	
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
-	
+
 	public int getNumber() {
 		return number;
 	}
-	
+
 	public String getRandomMessage() {
 		OptionsController oc = new OptionsController();
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 			dbc = DatabaseController.getDBController();
-		} else {
-
 		}
+
 		String message = null;
 		int count = -1;
-		
+
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
-			if(dbc.getMessPoolSeed() != null && dbc.getMessPoolSeed().getEnding().equals("end")) {
-				
+			if (dbc.getMessPoolSeed() != null && dbc.getMessPoolSeed().getEnding().equals("end")) {
+
 				count = dbc.getNumberOfMessages().getNumber();
 			} else {
-				
-				if(count != -1) {
-					
-					count = Integer.parseInt(dbc.getMessPoolSeed().getEnding());
-				}				
+
+				count = Integer.parseInt(dbc.getMessPoolSeed().getEnding());
 			}
-		
+
 			Random rand = new Random();
-			if(count != -1) {
-				
-				int randNum = rand.nextInt(count) + dbc.getMessPoolSeed().getStart();
-				
-				message = dbc.getMessageByID(Integer.toString(randNum)).getMessage();
-			}		
+
+			int randNum = rand.nextInt(count) + dbc.getMessPoolSeed().getStart();
+
+			message = dbc.getMessageByID(Integer.toString(randNum)).getMessage();
 		} else {
 
+			//insert code to get random message from offline message bank and assign to message
 		}
-	
-		//DONT FORGET TO FIGURE OUT WHERE THIS GOES AND FIX IT
-		return message;		
+
+		return message;
 	}
-	public String toString(){
+
+	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("Number:\t");
 		buf.append(getNumber());

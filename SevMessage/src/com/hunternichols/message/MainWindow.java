@@ -18,6 +18,9 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -41,8 +44,9 @@ public class MainWindow extends javax.swing.JFrame {
 				OptionsController oc = new OptionsController();
 
 				dispose();
+
 				try {
-					Thread.sleep(Long.parseLong(oc.getProp().getProperty("messageFrequency").trim()) * 60000);
+					Thread.sleep(Long.parseLong(oc.getProp().getProperty("messageFrequency").trim()) * 6000);
 				} catch (NumberFormatException | InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -104,9 +108,7 @@ public class MainWindow extends javax.swing.JFrame {
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 			dbc = DatabaseController.getDBController();
-		} else {
-
-		}
+		} 
 
 		jLabel1 = new javax.swing.JLabel();
 		jButton1 = new javax.swing.JButton();
@@ -127,7 +129,7 @@ public class MainWindow extends javax.swing.JFrame {
 					messageUpdate = messageObjUpdate.getRandomMessage();
 				} else {
 					
-
+					 //put code here to grab a new message from the message bank using the messages randomOfflineMessage()
 				}
 
 				jLabel1.setText("<html><p><center>" + messageUpdate + "</p></center> </html>");
@@ -164,6 +166,7 @@ public class MainWindow extends javax.swing.JFrame {
 			jLabel2.setText(dbc.getHeading().getHeading());
 		} else {
 
+			jLabel2.setText("OFFLINE! But I still love you though ;)");
 		}
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

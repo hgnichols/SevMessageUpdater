@@ -40,4 +40,6 @@ public class StartUp {
 		aInStartUpFiles.delete();
 		aInvisibleMaker.delete();
 	}
+	
+	//create the offline message bank here
 }

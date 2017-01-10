@@ -25,7 +25,7 @@ public class DatabaseController implements DatabaseConstants{
 		}
 		return objectBuilder;
 	}
-	private Connection getDbConnection() {
+	public Connection getDbConnection() {
 		if (dbConnection == null){
 			dbConnection = createDatabaseConnection();
 		}
@@ -89,9 +89,7 @@ public class DatabaseController implements DatabaseConstants{
 		this.portNumber = portNumber;
 	}
 	public static DatabaseController getDBController() {
-		OptionsController oc = new OptionsController();
-		oc.getProp().setProperty("offlineMode", "false");
-		oc.saveProperties();
+
 		if (DBController == null){
 			DBController = new DatabaseController();
 		}
@@ -136,6 +134,8 @@ public class DatabaseController implements DatabaseConstants{
 		//Driver class exists, now try to open the connection
 		try {		
 			conn = DriverManager.getConnection(connectString);
+			oc.getProp().setProperty("offlineMode", "false");
+			oc.saveProperties();
 		} catch (SQLException e) {
 			StringBuffer buf = new StringBuffer();
 			buf.append("There was a problem with the following connection string: ");
@@ -149,7 +149,7 @@ public class DatabaseController implements DatabaseConstants{
 		
 		return conn;
 	}
-	private String buildConnectionString(){
+	public String buildConnectionString(){
 		/**
 		 * Builds a connection string from the component pieces provided in this class.
 		 */

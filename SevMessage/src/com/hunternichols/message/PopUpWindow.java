@@ -43,9 +43,7 @@ public class PopUpWindow extends JFrame {
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 			dbc = DatabaseController.getDBController();
-		} else {
-
-		}
+		} 
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 470, 211);
@@ -64,9 +62,8 @@ public class PopUpWindow extends JFrame {
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 			label.setText("<html><p><center>" + dbc.getSendMessage().getSentMessage() + "</p></center> </html>");
-		} else {
-
-		}
+		} //remember do nothing here pop-ups wont work offline
+		
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 20));

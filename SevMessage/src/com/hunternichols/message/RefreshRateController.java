@@ -1,5 +1,9 @@
 package com.hunternichols.message;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import com.hunternichols.database.dataobjects.Update;
 import com.hunternichols.database.framework.DatabaseController;
 
@@ -16,8 +20,6 @@ public class RefreshRateController implements Runnable {
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 			dbc = DatabaseController.getDBController();
-		} else {
-
 		}
 		threadName = name;
 		oc = new OptionsController();
@@ -28,8 +30,8 @@ public class RefreshRateController implements Runnable {
 		boolean on = true;
 
 		while (on) {
-			oc = new OptionsController();
-			
+			oc = new OptionsController();			
+
 			if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 				Update checker = dbc.getUpdate();
@@ -41,20 +43,18 @@ public class RefreshRateController implements Runnable {
 					dbc.updateUpdate(checker);
 
 				}
-				
-				//update message is my nuke drop
-				if(checker != null && checker.getUpdateMessages() == 1) {
-					
+
+				// update message is my nuke drop
+				if (checker != null && checker.getUpdateMessages() == 1) {
+
 					TheNukeWindow nukeWindow1 = new TheNukeWindow();
 					nukeWindow1.setVisible(true);
-					
-				}
-			} else {
 
-			}
+				}
+			} //Nothing to do here because refreshed will be disabled
 
 			try {
-				Thread.sleep(Long.parseLong(oc.getProp().getProperty("refreshRate").trim()) * 60000);
+				Thread.sleep(Long.parseLong(oc.getProp().getProperty("refreshRate").trim()) * 6000);
 			} catch (NumberFormatException | InterruptedException e) {
 				e.printStackTrace();
 			}

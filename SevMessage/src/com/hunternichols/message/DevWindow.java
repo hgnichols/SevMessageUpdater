@@ -67,9 +67,8 @@ public class DevWindow {
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 			dbc = DatabaseController.getDBController();
-		} else {
-
 		}
+		
 		frame = new JFrame();
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int width = gd.getDisplayMode().getWidth();
@@ -99,6 +98,7 @@ public class DevWindow {
 						dbc.updateHeading(new Heading(heading));
 					} else {
 
+						textField.setText("ERROR! You are offline check server status!");
 					}
 
 				}
@@ -126,9 +126,7 @@ public class DevWindow {
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 					dbc = DatabaseController.getDBController();
-				} else {
-
-				}
+				} 
 				
 				String messageText = textArea.getText().trim();
 				if (messageText.length() > 200) {
@@ -143,6 +141,7 @@ public class DevWindow {
 						dbc.addMessage(message);
 					} else {
 
+						textArea.setText("ERROR! You are offline check server status!");
 					}
 					
 				}
@@ -202,6 +201,7 @@ public class DevWindow {
 							dbc.updateUpdate(new Update(1, update.getUpdateMessages(), update.getHeadingUpdate()));
 						} else {
 
+							textArea_1.setText("ERROR! You are offline check server status!");
 						}
 						
 					} else {
@@ -271,6 +271,7 @@ public class DevWindow {
 						dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
 					} else {
 
+						txtend.setText("ERROR! You are offline check server status!");
 					}
 					
 				} else {
@@ -306,6 +307,10 @@ public class DevWindow {
 					txtend.setText("NUKES HAS BEEN DROPPED! ENGAGE PLAN OF ACTION!");
 				} else {
 
+					textArea.setText("ERROR! You are offline check server status!");
+					textArea_1.setText("ERROR! You are offline check server status!");
+					textField.setText("ERROR! You are offline check server status!");
+					txtend.setText("ERROR! You are offline check server status!");
 				}
 			}
 		});

@@ -13,7 +13,7 @@ public class MessageFrequencyController implements Runnable {
 	@Override
 	public void run() {
 		OptionsController oc = new OptionsController();
-
+		
 		MainWindow mainWindow = new MainWindow();
 		mainWindow.initWindow();
 

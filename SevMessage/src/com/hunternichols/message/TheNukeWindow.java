@@ -53,9 +53,7 @@ public class TheNukeWindow extends JFrame {
 			Update updater = dbc.getUpdate();
 			updater.setUpdateMessages(0);
 			dbc.updateUpdate(updater);
-		} else {
-
-		}
+		} //nothing to do here, nuke window will not appear when offline
 		
 		setTitle("DO NOT CLOSE ME!");
 		setAlwaysOnTop(true);
