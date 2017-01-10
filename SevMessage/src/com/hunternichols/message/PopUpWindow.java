@@ -16,7 +16,8 @@ import javax.swing.SwingConstants;
 public class PopUpWindow extends JFrame {
 
 	private JPanel contentPane;
-
+	DatabaseController dbc = null;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -37,8 +38,14 @@ public class PopUpWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public PopUpWindow() {
+		OptionsController oc = new OptionsController();
 		
-		DatabaseController dbc = DatabaseController.getDBController();
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+			dbc = DatabaseController.getDBController();
+		} else {
+
+		}
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 470, 211);
@@ -54,7 +61,12 @@ public class PopUpWindow extends JFrame {
 		
 		JLabel label = new JLabel();
 		label.setToolTipText("");
-		label.setText("<html><p><center>" + dbc.getSendMessage().getSentMessage() + "</p></center> </html>");
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+			label.setText("<html><p><center>" + dbc.getSendMessage().getSentMessage() + "</p></center> </html>");
+		} else {
+
+		}
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 20));

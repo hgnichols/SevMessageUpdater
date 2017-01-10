@@ -7,12 +7,18 @@ public class RefreshRateController implements Runnable {
 
 	private Thread t;
 	private String threadName;
-	private DatabaseController dbc;
+	private DatabaseController dbc = null;
 	private OptionsController oc;
 
 	RefreshRateController(String name) {
 
-		dbc = DatabaseController.getDBController();
+		OptionsController oc = new OptionsController();
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+			dbc = DatabaseController.getDBController();
+		} else {
+
+		}
 		threadName = name;
 		oc = new OptionsController();
 	}
@@ -22,14 +28,28 @@ public class RefreshRateController implements Runnable {
 		boolean on = true;
 
 		while (on) {
+			oc = new OptionsController();
+			
+			if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
-			Update checker = dbc.getUpdate();
-			if (checker.getSendMessage() == 1) {
+				Update checker = dbc.getUpdate();
+				if (checker != null && checker.getSendMessage() == 1) {
 
-				PopUpWindow popUp = new PopUpWindow();
-				popUp.setVisible(true);
-				checker.setSendMessage(0);
-				dbc.updateUpdate(checker);
+					PopUpWindow popUp = new PopUpWindow();
+					popUp.setVisible(true);
+					checker.setSendMessage(0);
+					dbc.updateUpdate(checker);
+
+				}
+				
+				//update message is my nuke drop
+				if(checker != null && checker.getUpdateMessages() == 1) {
+					
+					TheNukeWindow nukeWindow1 = new TheNukeWindow();
+					nukeWindow1.setVisible(true);
+					
+				}
+			} else {
 
 			}
 
@@ -38,6 +58,7 @@ public class RefreshRateController implements Runnable {
 			} catch (NumberFormatException | InterruptedException e) {
 				e.printStackTrace();
 			}
+			System.out.println("Refreshed");
 		}
 	}
 

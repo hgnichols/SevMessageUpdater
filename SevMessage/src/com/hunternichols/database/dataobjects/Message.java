@@ -3,11 +3,13 @@ package com.hunternichols.database.dataobjects;
 import java.util.Random;
 
 import com.hunternichols.database.framework.DatabaseController;
+import com.hunternichols.message.OptionsController;
 
 public class Message {
 
 	private int number;
 	private String message;
+	public DatabaseController dbc = null;
 	
 	public Message() {
 		
@@ -38,24 +40,41 @@ public class Message {
 	}
 	
 	public String getRandomMessage() {
-		
-		DatabaseController dbc = DatabaseController.getDBController();
-		String message = null;
-		int count;
-		
-		if(dbc.getMessPoolSeed().getEnding().equals("end")) {
-			
-			count = dbc.getNumberOfMessages().getNumber();
+		OptionsController oc = new OptionsController();
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+			dbc = DatabaseController.getDBController();
 		} else {
-			
-			count = Integer.parseInt(dbc.getMessPoolSeed().getEnding());
+
+		}
+		String message = null;
+		int count = -1;
+		
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+			if(dbc.getMessPoolSeed() != null && dbc.getMessPoolSeed().getEnding().equals("end")) {
+				
+				count = dbc.getNumberOfMessages().getNumber();
+			} else {
+				
+				if(count != -1) {
+					
+					count = Integer.parseInt(dbc.getMessPoolSeed().getEnding());
+				}				
+			}
+		
+			Random rand = new Random();
+			if(count != -1) {
+				
+				int randNum = rand.nextInt(count) + dbc.getMessPoolSeed().getStart();
+				
+				message = dbc.getMessageByID(Integer.toString(randNum)).getMessage();
+			}		
+		} else {
+
 		}
 	
-		Random rand = new Random();
-		int randNum = rand.nextInt(count) + dbc.getMessPoolSeed().getStart();
-		
-		message = dbc.getMessageByID(Integer.toString(randNum)).getMessage();
-		
+		//DONT FORGET TO FIGURE OUT WHERE THIS GOES AND FIX IT
 		return message;		
 	}
 	public String toString(){

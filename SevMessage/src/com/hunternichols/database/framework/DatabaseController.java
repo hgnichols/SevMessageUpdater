@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import com.hunternichols.database.dataobjects.*;
+import com.hunternichols.message.OptionsController;
 
 public class DatabaseController implements DatabaseConstants{
 	/** VARIABLE DECLARATIONS *************************/
@@ -88,6 +89,9 @@ public class DatabaseController implements DatabaseConstants{
 		this.portNumber = portNumber;
 	}
 	public static DatabaseController getDBController() {
+		OptionsController oc = new OptionsController();
+		oc.getProp().setProperty("offlineMode", "false");
+		oc.saveProperties();
 		if (DBController == null){
 			DBController = new DatabaseController();
 		}
@@ -116,6 +120,7 @@ public class DatabaseController implements DatabaseConstants{
 
 	/** DATABASE CONNECTION CODE **********************/
 	private Connection createDatabaseConnection() {
+		OptionsController oc = new OptionsController();	
 		Connection conn = null;
 		String connectString = buildConnectionString();
 		//First, we make sure the Driver exists
@@ -129,7 +134,7 @@ public class DatabaseController implements DatabaseConstants{
 			System.exit(0);
 		}
 		//Driver class exists, now try to open the connection
-		try {
+		try {		
 			conn = DriverManager.getConnection(connectString);
 		} catch (SQLException e) {
 			StringBuffer buf = new StringBuffer();
@@ -137,9 +142,11 @@ public class DatabaseController implements DatabaseConstants{
 			buf.append(connectString);
 			buf.append("\n\nHere is the exceptio:\n");
 			buf.append(e.toString());
-			System.out.println(buf.toString());
-			System.exit(0);
+			System.out.println(buf.toString());			
+			oc.getProp().setProperty("offlineMode", "true");
+			oc.saveProperties();
 		}
+		
 		return conn;
 	}
 	private String buildConnectionString(){
@@ -314,16 +321,23 @@ public class DatabaseController implements DatabaseConstants{
 		}
 		buf.append(") }");
 		String sql = buf.toString();
-		try {
-			CallableStatement cs = getDbConnection().prepareCall(sql);
-			for (int i=0; i<nvpList.size(); i++){
-				cs.setString( nvpList.get(i).getName(), nvpList.get(i).getValue());
+		if(getDbConnection() != null) {
+			
+			try {
+				CallableStatement cs = getDbConnection().prepareCall(sql);
+				for (int i=0; i<nvpList.size(); i++){
+					cs.setString( nvpList.get(i).getName(), nvpList.get(i).getValue());
+				}
+				rs = cs.executeQuery();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			rs = cs.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return rs;
+		} else {
+			
+			return null;
 		}
-		return rs;
+		
 	}
 	
 	public ResultSet executeSpecialStoredProcedure(String procName) {
@@ -494,14 +508,22 @@ public class DatabaseController implements DatabaseConstants{
 		ArrayList<NameValuePair> nvps = new ArrayList<>();
 		nvps.add(new NameValuePair(DatabaseConstants.COLUMN_UPDATES_ID, "1"));
 		rs = executeStoredProcedure(DatabaseConstants.SP_GET_UPDATES, nvps);
-		try {
-			if (rs.next()){
-				u = getObjectBuilder().createUpdate(rs);
+		
+		if(rs != null) {
+			
+			try {
+				if (rs.next()){
+					u = getObjectBuilder().createUpdate(rs);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return u;
+		} else {
+			
+			return null;
 		}
-		return u;
+		
 	}
 	
 	public Heading getHeading(){
@@ -511,14 +533,22 @@ public class DatabaseController implements DatabaseConstants{
 		ArrayList<NameValuePair> nvps = new ArrayList<>();
 		nvps.add(new NameValuePair(DatabaseConstants.COLUMN_HEADING_ID, "1"));
 		rs = executeStoredProcedure(DatabaseConstants.SP_GET_HEADING, nvps);
-		try {
-			if (rs.next()){
-				h = getObjectBuilder().createHeading(rs);
+		
+		if(rs != null) {
+			
+			try {
+				if (rs.next()){
+					h = getObjectBuilder().createHeading(rs);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return h;
+		} else {
+			
+			return null;
 		}
-		return h;
+		
 	}
 	
 	public void updateHeading(Heading h){
@@ -559,14 +589,21 @@ public class DatabaseController implements DatabaseConstants{
 		ArrayList<NameValuePair> nvps = new ArrayList<>();
 		nvps.add(new NameValuePair(DatabaseConstants.COLUMN_MESSPOOLSEED_ID, "1"));
 		rs = executeStoredProcedure(DatabaseConstants.SP_GET_MESSPOOLSEED, nvps);
-		try {
-			if (rs.next()){
-				m = getObjectBuilder().createMessPoolSeed(rs);
+		if(rs != null) {
+			
+			try {
+				if (rs.next()){
+					m = getObjectBuilder().createMessPoolSeed(rs);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return m;
+		} else {
+			
+			return null;
 		}
-		return m;
+		
 	}
 	
 	public void updateMessPoolSeed(MessPoolSeed m){

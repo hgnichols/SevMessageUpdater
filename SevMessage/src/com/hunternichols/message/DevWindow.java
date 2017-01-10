@@ -33,6 +33,8 @@ public class DevWindow {
 	JFrame frame;
 	private JTextField textField;
 	private JTextField txtend;
+	public DatabaseController dbc = null;
+
 
 	/**
 	 * Launch the application.
@@ -62,7 +64,12 @@ public class DevWindow {
 	 */
 	private void initialize() {
 		OptionsController oc = new OptionsController();
-		DatabaseController dbc = DatabaseController.getDBController();
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+			dbc = DatabaseController.getDBController();
+		} else {
+
+		}
 		frame = new JFrame();
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int width = gd.getDisplayMode().getWidth();
@@ -85,9 +92,14 @@ public class DevWindow {
 				} else {
 
 					textField.setText("SENT SUCESSFULLY! " + heading);
-					Update update = dbc.getUpdate();
-					dbc.updateUpdate(new Update(update.getSendMessage(), update.getUpdateMessages(), 1));
-					dbc.updateHeading(new Heading(heading));
+					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+						Update update = dbc.getUpdate();
+						dbc.updateUpdate(new Update(update.getSendMessage(), update.getUpdateMessages(), 1));
+						dbc.updateHeading(new Heading(heading));
+					} else {
+
+					}
 
 				}
 			}
@@ -111,16 +123,28 @@ public class DevWindow {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				DatabaseController dbc = DatabaseController.getDBController();
+				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+					dbc = DatabaseController.getDBController();
+				} else {
+
+				}
+				
 				String messageText = textArea.getText().trim();
 				if (messageText.length() > 200) {
 
 					textArea.setText("ERROR! TOO MANY CHARACTERS: " + messageText);
 				} else {
 
-					Message message = new Message(dbc.getNumberOfMessages().getNumber() + 1, messageText);
-					textArea.setText("CHANGED TOO: " + messageText);
-					dbc.addMessage(message);
+					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+						Message message = new Message(dbc.getNumberOfMessages().getNumber() + 1, messageText);
+						textArea.setText("CHANGED TOO: " + messageText);
+						dbc.addMessage(message);
+					} else {
+
+					}
+					
 				}
 			}
 		});
@@ -168,10 +192,22 @@ public class DevWindow {
 					textArea_1.setText("ERROR TOO MANY CHARACTERS! " + sentMessage);
 				} else {
 
-					textArea_1.setText("SENT SUCESSFULLY! " + sentMessage);
-					dbc.updateSendMessage(new SendMessage(sentMessage));
-					Update update = dbc.getUpdate();
-					dbc.updateUpdate(new Update(1, update.getUpdateMessages(), update.getHeadingUpdate()));
+					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+						if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+							textArea_1.setText("SENT SUCESSFULLY! " + sentMessage);
+							dbc.updateSendMessage(new SendMessage(sentMessage));
+							Update update = dbc.getUpdate();
+							dbc.updateUpdate(new Update(1, update.getUpdateMessages(), update.getHeadingUpdate()));
+						} else {
+
+						}
+						
+					} else {
+
+					}
+					
 
 				}
 
@@ -210,19 +246,6 @@ public class DevWindow {
 		chckbxNewCheckBox.setSelected(Boolean.valueOf(oc.getProp().getProperty("devMode")));
 		frame.getContentPane().add(chckbxNewCheckBox);
 
-		JButton btnNewButton = new JButton("Force Update");
-		
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				dbc.updateUpdate(new Update(0 , 1, 1));
-			}
-		});
-		
-		btnNewButton.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		btnNewButton.setBounds(666, 329, 103, 23);
-		frame.getContentPane().add(btnNewButton);
-
 		txtend = new JTextField();
 		txtend.setText("");
 		txtend.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
@@ -231,27 +254,33 @@ public class DevWindow {
 		txtend.setColumns(10);
 
 		JButton btnNewButton_1 = new JButton("Update Message Pool");
-		
+
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String seed = txtend.getText().trim();
-				List<String> list =  Arrays.asList(seed.split(","));
+				List<String> list = Arrays.asList(seed.split(","));
 				String start = list.get(0).trim();
 				String ending = list.get(1).trim();
-				
-				if((Pattern.matches("[0-9]+", start)) && (Pattern.matches("[0-9]+", ending) || ending.equals("end"))) {
+
+				if ((Pattern.matches("[0-9]+", start)) && (Pattern.matches("[0-9]+", ending) || ending.equals("end"))) {
+
+					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+						txtend.setText(seed + " Success!");
+						dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
+					} else {
+
+					}
 					
-					txtend.setText(seed + " Success!");
-					dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
 				} else {
-					
+
 					txtend.setText(seed + " BAD FORMAT!");
 				}
-				
+
 			}
 		});
-		
+
 		btnNewButton_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(484, 270, 149, 23);
 		frame.getContentPane().add(btnNewButton_1);
@@ -260,24 +289,35 @@ public class DevWindow {
 		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		lblNewLabel.setBounds(633, 234, 205, 17);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JButton btnNewButton_2 = new JButton("Drop Nukes");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				TheNukeWindow frame = new TheNukeWindow();
-				frame.setVisible(true);
+				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+					Update updater = dbc.getUpdate();
+					updater.setUpdateMessages(1);
+					dbc.updateUpdate(updater);
+
+					textArea.setText("NUKES HAS BEEN DROPPED! ENGAGE PLAN OF ACTION!");
+					textArea_1.setText("NUKES HAS BEEN DROPPED! ENGAGE PLAN OF ACTION!");
+					textField.setText("NUKES HAS BEEN DROPPED! ENGAGE PLAN OF ACTION!");
+					txtend.setText("NUKES HAS BEEN DROPPED! ENGAGE PLAN OF ACTION!");
+				} else {
+
+				}
 			}
 		});
 		btnNewButton_2.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		btnNewButton_2.setForeground(Color.RED);
-		btnNewButton_2.setBounds(546, 329, 103, 23);
+		btnNewButton_2.setBounds(677, 329, 103, 23);
 		frame.getContentPane().add(btnNewButton_2);
-		
+
 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("initBoot");
 		chckbxNewCheckBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				boolean selected = chckbxNewCheckBox_1.isSelected();
 				if (selected) {
 

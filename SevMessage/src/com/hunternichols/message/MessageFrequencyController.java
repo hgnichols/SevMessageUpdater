@@ -16,6 +16,7 @@ public class MessageFrequencyController implements Runnable {
 
 		MainWindow mainWindow = new MainWindow();
 		mainWindow.initWindow();
+
 		if (oc.getProp().getProperty("initBoot").equals("true")) {
 
 			InstructionWindow iWindow = new InstructionWindow();
@@ -27,7 +28,7 @@ public class MessageFrequencyController implements Runnable {
 	}
 
 	public void start() {
-		
+
 		if (t == null) {
 			t = new Thread(this, threadName);
 			t.start();

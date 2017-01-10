@@ -40,11 +40,10 @@ public class InstructionWindow extends JFrame {
 	public InstructionWindow() {
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 461, 293);
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
-		setBounds(width / 3 + 100, height / 3 - 100, 461, 565);
+		setBounds(width / 3 + 100, height / 3 - 100, 461, 581);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -52,12 +51,12 @@ public class InstructionWindow extends JFrame {
 		
 		JTextArea txtrHelloTheLove = new JTextArea();
 		txtrHelloTheLove.setWrapStyleWord(true);
-		txtrHelloTheLove.setText("Hello the Love Of my Life! I have worked a very long time on this project for you, and here are some instructions to help you use this awesome application I have created for you.\r\n\r\nPLEASE READ EVERYTHING BEFORE USING THIS APPLICATION!\r\n1. This program will start on Computer start up unless changed in the settings\r\n2. It will refresh for updates every 30 minutes unless changed (**updates are different then Messege requency refreshes)\r\n3. Updates include: Me sending you a direct pop-up message, a change in the heading, if I want to force update the message, or if I want to update where in my database messages can come from (all of which is done from the developer console part of the app I have on my computer)\r\n4. The app will also update the message and make the window re-appear after 30 minutes by default (**this is different than the refresh rate)\r\n5. You  may exit the program without incurring any refreshing or reloading of the app (located in the settings)\r\n6. Ignore the command line, is for developer use only\r\n7. You may re-read this at anytime by clicking \"Help\" in the settings\r\n8. Please report any errors, bugs, or wierd things directly to me ASAP");
+		txtrHelloTheLove.setText("Hello the Love Of my Life! I have worked a very long time on this project for you, and here are some instructions to help you use this awesome application I have created for you.\r\n\r\nPLEASE READ EVERYTHING BEFORE USING THIS APPLICATION!\r\n1. This program will start on Computer start up unless changed in the settings\r\n2. It will refresh for updates every 5 minutes unless changed (**updates are different then Messege frequency refreshes)\r\n3. The only thing refresh controlls is a pop-up message (which is done from the developer console part of the app I have on my computer)\r\n4. The app will also update the message and make the window re-appear after 30 minutes by default (**this is different than the refresh rate)\r\n5. You  may exit the program without incurring any refreshing or reloading of the app (located in the settings)\r\n6. Ignore the command line, is for developer use only\r\n7. If you are getting a window that says an instance already exists. Go to your task manager and end the \"Java(TM) Platform SE binary)\" proccess\r\n8. You may re-read this at anytime by clicking \"Help\" in the settings\r\n9. Please report any errors, bugs, or wierd things directly to me ASAP");
 		txtrHelloTheLove.setEditable(false);
 		txtrHelloTheLove.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
 		txtrHelloTheLove.setBackground(SystemColor.control);
 		txtrHelloTheLove.setLineWrap(true);
-		txtrHelloTheLove.setBounds(10, 48, 425, 467);
+		txtrHelloTheLove.setBounds(10, 48, 425, 479);
 		contentPane.add(txtrHelloTheLove);
 		
 		JLabel lblNewLabel = new JLabel("Important! Must Read this before using this Application");

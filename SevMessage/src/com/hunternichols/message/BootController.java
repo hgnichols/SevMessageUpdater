@@ -1,37 +1,97 @@
 package com.hunternichols.message;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+
+import com.hunternichols.database.framework.DatabaseController;
+
 public class BootController {
 
+	public static File f;
+	public static FileChannel channel;
+	public static FileLock lock;
+
+	@SuppressWarnings("resource")
 	public static void main(String args[]) {
 
-		boolean on = true;
 		OptionsController oc = new OptionsController();
+		@SuppressWarnings("unused")
+		DatabaseController testsConnection = DatabaseController.getDBController();
+		
+		if (!StartUp.exists()) {
 
-		if(!StartUp.exists()) {
-			
 			StartUp.create();
 		}
-		
+
 		if (oc.getProp().getProperty("devMode").equals("true")) {
 
 			DevWindow devWindow = new DevWindow();
 			devWindow.frame.setVisible(true);
 		} else {
 
-			while (on) {
+			try {
 
+				f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator
+						+ "SevMessageConfig" + File.separator + "key.lock");
+
+				if (f.exists()) {
+
+					f.delete();
+				}
+
+				channel = new RandomAccessFile(f, "rw").getChannel();
+				lock = channel.tryLock();
+
+				if (lock == null) {
+
+					channel.close();
+					SingleInstancePrompt sip = new SingleInstancePrompt();
+					sip.setVisible(true);
+					throw new RuntimeException("Only 1 instance of this program can be run at a time");
+				}
+
+				Thread shutdown = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+
+						unlock();
+					}
+				});
+
+				Runtime.getRuntime().addShutdownHook(shutdown);
+
+				// program goes here
 				MessageFrequencyController messageFrequency = new MessageFrequencyController("FrequencyThread");
 				messageFrequency.start();
-				
+
 				RefreshRateController refresh = new RefreshRateController("RefreshThread");
 				refresh.start();
-				
-				try {
-					Thread.sleep(Long.parseLong(oc.getProp().getProperty("messageFrequency").trim()) * 60000);
-				} catch (NumberFormatException | InterruptedException e) {
-					e.printStackTrace();
-				}
+
+			} catch (IOException e) {
+
+				throw new RuntimeException("Could not start process", e);
 			}
+
+		}
+	}
+
+	public static void unlock() {
+
+		try {
+
+			if (lock != null) {
+
+				lock.release();
+				channel.close();
+				f.delete();
+			}
+		} catch (IOException e) {
+
+			e.printStackTrace();
 		}
 	}
 }
