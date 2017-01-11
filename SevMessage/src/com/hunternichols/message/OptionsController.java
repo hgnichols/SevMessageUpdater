@@ -17,7 +17,7 @@ public class OptionsController {
 	private final String configFileDir = System.getProperty("user.home") + File.separator + "Documents" + File.separator
 			+ "SevMessageConfig";
 	Properties prop;
-	private final String version = "0.09";
+	private final String version = "0.11";
 
 	public OptionsController() {
 
@@ -84,11 +84,9 @@ public class OptionsController {
 			bw.newLine();
 			bw.write("messageFrequency=30");
 			bw.newLine();
-			bw.write("refreshRate=5");
+			bw.write("refreshRate=60");
 			bw.newLine();
 			bw.write("devMode=false");
-			bw.newLine();
-			bw.write("updateClient=false");
 			bw.newLine();
 			bw.write("offlineMode=false");
 		} catch (IOException e) {

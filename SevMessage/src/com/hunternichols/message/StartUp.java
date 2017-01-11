@@ -9,12 +9,14 @@ public class StartUp {
 	
 	private final static String inStartUpFiles = "C:/ProgramData/Microsoft/Windows/Start Menu/Programs/StartUp/SevMessageStartUp.bat";
 	private final static String invisibleMaker = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "invisible.vbs";
+	private final static String offlineMessageBank = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "offlineMessageBank.txt";
 
 	public static boolean exists() {
 		
 		File aInStartUpFiles = new File(inStartUpFiles);
 		File aInvisibleMaker = new File(invisibleMaker);
-		return aInStartUpFiles.exists() && aInvisibleMaker.exists();
+		File aOfflineMessageBank = new File(offlineMessageBank);
+		return aInStartUpFiles.exists() && aInvisibleMaker.exists() && aOfflineMessageBank.exists();
 	}
 	
 	public static void create() {
@@ -26,6 +28,13 @@ public class StartUp {
 
 		    writer = new PrintWriter(invisibleMaker);
 		    writer.println("CreateObject(\"Wscript.Shell\").Run \"\"\"\" & WScript.Arguments(0) & \"\"\"\", 0, False");
+		    writer.close();
+		    
+		    writer = new PrintWriter(offlineMessageBank);
+		    writer.println("Merry Christmas Me'Lady (late I know but who cares)");
+		    writer.println("I Loves your bannana face (not racist yo)");
+		    writer.println("You are my favorite little girl :). I am not pedo I swear. IIII WILLLLL ALLLLLLWAAAAYS LOOOOVEEE YOUUUUUU.");
+		    writer.println("I love you more than I love video games");
 		    writer.close();
 		} catch (IOException e) {
 		   
@@ -40,6 +49,4 @@ public class StartUp {
 		aInStartUpFiles.delete();
 		aInvisibleMaker.delete();
 	}
-	
-	//create the offline message bank here
 }

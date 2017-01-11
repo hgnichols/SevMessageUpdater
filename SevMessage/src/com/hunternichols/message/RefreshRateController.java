@@ -1,9 +1,5 @@
 package com.hunternichols.message;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 import com.hunternichols.database.dataobjects.Update;
 import com.hunternichols.database.framework.DatabaseController;
 
@@ -27,12 +23,12 @@ public class RefreshRateController implements Runnable {
 
 	@Override
 	public void run() {
+		oc = new OptionsController();
 		boolean on = true;
-
-		while (on) {
-			oc = new OptionsController();			
-
-			if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+		
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+			while (on) {
+				oc = new OptionsController();
 
 				Update checker = dbc.getUpdate();
 				if (checker != null && checker.getSendMessage() == 1) {
@@ -51,14 +47,14 @@ public class RefreshRateController implements Runnable {
 					nukeWindow1.setVisible(true);
 
 				}
-			} //Nothing to do here because refreshed will be disabled
 
-			try {
-				Thread.sleep(Long.parseLong(oc.getProp().getProperty("refreshRate").trim()) * 6000);
-			} catch (NumberFormatException | InterruptedException e) {
-				e.printStackTrace();
+				try {
+					Thread.sleep(Long.parseLong(oc.getProp().getProperty("refreshRate").trim()) * 1000);
+				} catch (NumberFormatException | InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println("Refreshed");
 			}
-			System.out.println("Refreshed");
 		}
 	}
 

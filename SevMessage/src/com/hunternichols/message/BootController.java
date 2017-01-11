@@ -26,8 +26,10 @@ public class BootController {
 
 			@SuppressWarnings("unused")
 			Connection conn = DriverManager.getConnection(testsConnection.buildConnectionString());
+			
 			oc.getProp().setProperty("offlineMode", "false");
 			oc.saveProperties();
+			
 		} catch (SQLException e) {
 
 			oc.getProp().setProperty("offlineMode", "true");
@@ -78,6 +80,12 @@ public class BootController {
 				Runtime.getRuntime().addShutdownHook(shutdown);
 
 				// program goes here
+				if (Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+					
+					OfflineWindowInfo offline = new OfflineWindowInfo();
+					offline.setVisible(true);
+				}
+				
 				MessageFrequencyController messageFrequency = new MessageFrequencyController("FrequencyThread");
 				messageFrequency.start();
 

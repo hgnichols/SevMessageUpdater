@@ -35,7 +35,6 @@ public class DevWindow {
 	private JTextField txtend;
 	public DatabaseController dbc = null;
 
-
 	/**
 	 * Launch the application.
 	 */
@@ -68,7 +67,7 @@ public class DevWindow {
 
 			dbc = DatabaseController.getDBController();
 		}
-		
+
 		frame = new JFrame();
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int width = gd.getDisplayMode().getWidth();
@@ -90,11 +89,9 @@ public class DevWindow {
 					textField.setText("ERROR TOO MANY CHARACTERS! " + heading);
 				} else {
 
-					textField.setText("SENT SUCESSFULLY! " + heading);
+					textField.setText("CHANGED TOO: " + heading);
 					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
-						Update update = dbc.getUpdate();
-						dbc.updateUpdate(new Update(update.getSendMessage(), update.getUpdateMessages(), 1));
 						dbc.updateHeading(new Heading(heading));
 					} else {
 
@@ -126,8 +123,8 @@ public class DevWindow {
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 					dbc = DatabaseController.getDBController();
-				} 
-				
+				}
+
 				String messageText = textArea.getText().trim();
 				if (messageText.length() > 200) {
 
@@ -137,13 +134,13 @@ public class DevWindow {
 					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 						Message message = new Message(dbc.getNumberOfMessages().getNumber() + 1, messageText);
-						textArea.setText("CHANGED TOO: " + messageText);
+						textArea.setText("ADDED TO MESSAGE BANK: " + messageText);
 						dbc.addMessage(message);
 					} else {
 
 						textArea.setText("ERROR! You are offline check server status!");
 					}
-					
+
 				}
 			}
 		});
@@ -183,32 +180,25 @@ public class DevWindow {
 
 		btnSendMessage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+					String sentMessage = textArea_1.getText().trim();
 
-				String sentMessage = textArea_1.getText().trim();
+					if (sentMessage.length() > 200) {
 
-				if (sentMessage.length() > 200) {
-
-					textArea_1.setText("ERROR TOO MANY CHARACTERS! " + sentMessage);
-				} else {
-
-					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
-
-						if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
-
-							textArea_1.setText("SENT SUCESSFULLY! " + sentMessage);
-							dbc.updateSendMessage(new SendMessage(sentMessage));
-							Update update = dbc.getUpdate();
-							dbc.updateUpdate(new Update(1, update.getUpdateMessages(), update.getHeadingUpdate()));
-						} else {
-
-							textArea_1.setText("ERROR! You are offline check server status!");
-						}
-						
+						textArea_1.setText("ERROR TOO MANY CHARACTERS! " + sentMessage);
 					} else {
 
-					}
-					
+						textArea_1.setText("SENT SUCESSFULLY! " + sentMessage);
+						dbc.updateSendMessage(new SendMessage(sentMessage));
+						Update update = dbc.getUpdate();
+						dbc.updateUpdate(new Update(1, update.getUpdateMessages(), update.getHeadingUpdate()));
 
+					}
+
+				} else {
+
+					textArea_1.setText("ERROR! You are offline check server status!");
 				}
 
 			}
@@ -253,30 +243,61 @@ public class DevWindow {
 		frame.getContentPane().add(txtend);
 		txtend.setColumns(10);
 
+		JLabel lblNewLabel_1 = new JLabel("");
 		JButton btnNewButton_1 = new JButton("Update Message Pool");
 
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String seed = txtend.getText().trim();
-				List<String> list = Arrays.asList(seed.split(","));
-				String start = list.get(0).trim();
-				String ending = list.get(1).trim();
+				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
-				if ((Pattern.matches("[0-9]+", start)) && (Pattern.matches("[0-9]+", ending) || ending.equals("end"))) {
-
-					if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
-
-						txtend.setText(seed + " Success!");
-						dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
-					} else {
-
-						txtend.setText("ERROR! You are offline check server status!");
+					String seed = txtend.getText().trim();
+					List<String> list = Arrays.asList(seed.split(","));
+					String start = "broken";
+					String ending = "broken";
+					if(list.size() > 1) {
+						
+						start = list.get(0).trim();
+						ending = list.get(1).trim();
+					}
+					boolean isTooBig = false;
+					
+					try {
+						
+						int localEnding = Integer.parseInt(ending);
+						int bankSize = dbc.getNumberOfMessages().getNumber();
+						if(localEnding > bankSize) {
+							
+							isTooBig = true;
+						}
+					} catch(NumberFormatException ex) {
+						try {
+							
+							int localStart = Integer.parseInt(start);
+							int bankSize = dbc.getNumberOfMessages().getNumber();
+							if(localStart > bankSize) {
+								
+								isTooBig = true;
+							}
+						} catch(NumberFormatException ex2) {
+							
+							
+						}
 					}
 					
+					if (((Pattern.matches("[0-9]+", start)) && (Pattern.matches("[0-9]+", ending) || ending.equals("end"))) && Integer.parseInt(start) > 0 && !isTooBig) {
+
+							txtend.setText(seed + " Success!");
+							dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
+							lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + "," + dbc.getMessPoolSeed().getEnding());
+
+					} else {
+
+						txtend.setText(seed + " BAD FORMAT!");
+					}
 				} else {
 
-					txtend.setText(seed + " BAD FORMAT!");
+					txtend.setText("ERROR! OFFLINE!");
 				}
 
 			}
@@ -294,7 +315,7 @@ public class DevWindow {
 		JButton btnNewButton_2 = new JButton("Drop Nukes");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 					Update updater = dbc.getUpdate();
@@ -339,5 +360,17 @@ public class DevWindow {
 		chckbxNewCheckBox_1.setBounds(10, 328, 75, 23);
 		chckbxNewCheckBox_1.setSelected(Boolean.valueOf(oc.getProp().getProperty("initBoot")));
 		frame.getContentPane().add(chckbxNewCheckBox_1);
+		
+		lblNewLabel_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+			
+			lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + "," + dbc.getMessPoolSeed().getEnding());
+		} else {
+			
+			lblNewLabel_1.setText("OFFLINE! N/A" );
+		}
+		
+		lblNewLabel_1.setBounds(484, 297, 383, 21);
+		frame.getContentPane().add(lblNewLabel_1);
 	}
 }

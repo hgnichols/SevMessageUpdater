@@ -1,5 +1,11 @@
 package com.hunternichols.database.dataobjects;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 import com.hunternichols.database.framework.DatabaseController;
@@ -51,7 +57,7 @@ public class Message {
 
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
-			if (dbc.getMessPoolSeed() != null && dbc.getMessPoolSeed().getEnding().equals("end")) {
+			if (dbc.getMessPoolSeed().getEnding().equals("end")) {
 
 				count = dbc.getNumberOfMessages().getNumber();
 			} else {
@@ -61,12 +67,34 @@ public class Message {
 
 			Random rand = new Random();
 
-			int randNum = rand.nextInt(count) + dbc.getMessPoolSeed().getStart();
-
+			int randNum = rand.nextInt((count - dbc.getMessPoolSeed().getStart()) + 1) + dbc.getMessPoolSeed().getStart();
+			
 			message = dbc.getMessageByID(Integer.toString(randNum)).getMessage();
 		} else {
 
-			//insert code to get random message from offline message bank and assign to message
+			FileInputStream fs = null;
+			String array[] = null;
+			Random rand = new Random();
+			int randomNumber;
+			
+			try {
+				fs = new FileInputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "offlineMessageBank.txt");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+			try {
+				array = br.readLine().split("¥");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+ 
+			randomNumber = rand.nextInt(array.length);
+			
+			message = array[randomNumber];
 		}
 
 		return message;

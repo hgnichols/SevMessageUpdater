@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.DecimalFormat;
 import java.beans.PropertyChangeEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
@@ -56,7 +57,7 @@ public class OptionsWindow {
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
-		frame.setBounds(width / 3, height / 3, 461, 293);
+		frame.setBounds(width / 3, height / 3, 461, 321);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -72,21 +73,21 @@ public class OptionsWindow {
 				}
 			}
 		});
-		textField.setBounds(10, 215, 430, 31);
+		textField.setBounds(10, 240, 430, 31);
 		frame.getContentPane().add(textField);
 		
 		JLabel label = new JLabel();
 		label.setText("Command Line (Dev Use Only)");
 		label.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		label.setBounds(10, 195, 204, 17);
+		label.setBounds(10, 220, 204, 17);
 		frame.getContentPane().add(label);
 		
 		OptionsController oc = new OptionsController();
 		
 		JSlider slider = new JSlider();
-		slider.setBounds(10, 101, 430, 33);
+		slider.setBounds(10, 113, 430, 31);
 		slider.setPaintTicks(true);
-		slider.setMaximum(300);
+		slider.setMaximum(600);
 		slider.setMinimum(1);
 		slider.setValue(Integer.parseInt(oc.getProp().getProperty("refreshRate")));
 		frame.getContentPane().add(slider);
@@ -94,7 +95,7 @@ public class OptionsWindow {
 		JLabel lblBackgroundRefreshRate = new JLabel();
 		lblBackgroundRefreshRate.setText("Background Refresh Rate");
 		lblBackgroundRefreshRate.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		lblBackgroundRefreshRate.setBounds(10, 73, 158, 17);
+		lblBackgroundRefreshRate.setBounds(10, 91, 158, 17);
 		frame.getContentPane().add(lblBackgroundRefreshRate);
 		
 		JSlider slider_1 = new JSlider();
@@ -115,7 +116,7 @@ public class OptionsWindow {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
 		lblNewLabel.setBounds(317, 54, 123, 25);
-		lblNewLabel.setText(oc.getProp().getProperty("messageFrequency") + "  minute(s)");
+		lblNewLabel.setText(oc.getProp().getProperty("messageFrequency") + "   minute(s)");
 		
 		lblNewLabel.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
@@ -127,17 +128,25 @@ public class OptionsWindow {
 		
 		frame.getContentPane().add(lblNewLabel);
 		
+		JLabel label_3 = new JLabel("115  second(s) or 1.92 minute(s)");
+		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_3.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
+		label_3.setBounds(291, 155, 149, 25);
+		frame.getContentPane().add(label_3);
+		
 		JLabel label_1 = new JLabel(oc.getProp().getProperty("refreshRate"));
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		label_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 17));
-		label_1.setBounds(317, 129, 123, 25);
-		label_1.setText(oc.getProp().getProperty("refreshRate") + "  minute(s)");
+		label_1.setFont(new Font("Microsoft Yi Baiti", Font.BOLD, 17));
+		label_1.setBounds(291, 135, 149, 25);
+		DecimalFormat df = new DecimalFormat("#.##");
+		label_1.setText(oc.getProp().getProperty("refreshRate") + "   second(s)");
+		label_3.setText(df.format(Long.parseLong(oc.getProp().getProperty("refreshRate").trim()) / 60.0) + "   minute(s)");
 		
 		label_1.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				
-				oc.getProp().setProperty("refreshRate", label_1.getText().substring(0, 3).trim());
+				oc.getProp().setProperty("refreshRate", label_1.getText().substring(0, 4).trim());
 				oc.saveProperties();
 			}
 		});
@@ -166,7 +175,7 @@ public class OptionsWindow {
 			}
 		});
 		chckbxNewCheckBox.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		chckbxNewCheckBox.setBounds(312, 161, 123, 23);
+		chckbxNewCheckBox.setBounds(317, 186, 123, 23);
 		chckbxNewCheckBox.setSelected(Boolean.valueOf(oc.getProp().getProperty("startOnStartUp")));
 		frame.getContentPane().add(chckbxNewCheckBox);
 		
@@ -178,7 +187,7 @@ public class OptionsWindow {
 			}
 		});
 		btnNewButton.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		btnNewButton.setBounds(10, 161, 143, 23);
+		btnNewButton.setBounds(10, 186, 143, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Help");
@@ -189,20 +198,21 @@ public class OptionsWindow {
 				iWindow.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(200, 163, 65, 23);
+		btnNewButton_1.setBounds(201, 186, 65, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				
-				lblNewLabel.setText(Integer.toString(slider_1.getValue())  + "  minute(s)");
+				lblNewLabel.setText(Integer.toString(slider_1.getValue())  + "   minute(s)");
 			}
 		});
 		
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				
-				label_1.setText(Integer.toString(slider.getValue())  + "  minute(s)");
+				DecimalFormat df = new DecimalFormat("#.##");
+				label_1.setText(Integer.toString(slider.getValue())  + "   second(s)");
+				label_3.setText(df.format(Long.parseLong(oc.getProp().getProperty("refreshRate").trim()) / 60.0) + "   minute(s)");
 			}
 		});
 	}

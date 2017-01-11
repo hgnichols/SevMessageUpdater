@@ -18,9 +18,6 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  *
@@ -46,7 +43,7 @@ public class MainWindow extends javax.swing.JFrame {
 				dispose();
 
 				try {
-					Thread.sleep(Long.parseLong(oc.getProp().getProperty("messageFrequency").trim()) * 6000);
+					Thread.sleep(Long.parseLong(oc.getProp().getProperty("messageFrequency").trim()) * 60000);
 				} catch (NumberFormatException | InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -123,13 +120,13 @@ public class MainWindow extends javax.swing.JFrame {
 		jButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String messageUpdate = null;
+				Message messageObjUpdate = new Message();
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
-
-					Message messageObjUpdate = new Message();
+					
 					messageUpdate = messageObjUpdate.getRandomMessage();
 				} else {
 					
-					 //put code here to grab a new message from the message bank using the messages randomOfflineMessage()
+					 messageUpdate = messageObjUpdate.getRandomMessage();
 				}
 
 				jLabel1.setText("<html><p><center>" + messageUpdate + "</p></center> </html>");
