@@ -61,7 +61,7 @@ public class OfflineWindowInfo extends JFrame {
 		txtrPleaseContactYour.setEditable(false);
 		txtrPleaseContactYour.setLineWrap(true);
 		txtrPleaseContactYour.setWrapStyleWord(true);
-		txtrPleaseContactYour.setBounds(25, 58, 333, 148);
+		txtrPleaseContactYour.setBounds(25, 58, 333, 159);
 		contentPane.add(txtrPleaseContactYour);
 	}
 }

@@ -13,6 +13,11 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -63,9 +68,24 @@ public class DevWindow {
 	 */
 	private void initialize() {
 		OptionsController oc = new OptionsController();
-		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+		dbc = DatabaseController.getDBController();
+		@SuppressWarnings("unused")
+		Connection conn = null;
+		String connectString = dbc.buildConnectionString();
 
-			dbc = DatabaseController.getDBController();
+		try {
+			conn = DriverManager.getConnection(connectString);
+			oc.getProp().setProperty("offlineMode", "false");
+			oc.saveProperties();
+		} catch (SQLException e) {
+			StringBuffer buf = new StringBuffer();
+			buf.append("There was a problem with the following connection string: ");
+			buf.append(connectString);
+			buf.append("\n\nHere is the exceptio:\n");
+			buf.append(e.toString());
+			System.out.println(buf.toString());
+			oc.getProp().setProperty("offlineMode", "true");
+			oc.saveProperties();
 		}
 
 		frame = new JFrame();
@@ -81,6 +101,38 @@ public class DevWindow {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+
+				OptionsController oc = new OptionsController();
+				dbc = DatabaseController.getDBController();
+				@SuppressWarnings("unused")
+				Connection conn = null;
+				String connectString = dbc.buildConnectionString();
+
+				try {
+					conn = DriverManager.getConnection(connectString);
+					oc.getProp().setProperty("offlineMode", "false");
+					oc.saveProperties();
+				} catch (SQLException e4) {
+					StringBuffer buf = new StringBuffer();
+					buf.append("There was a problem with the following connection string: ");
+					buf.append(connectString);
+					buf.append("\n\nHere is the exceptio:\n");
+					buf.append(e.toString());
+					System.out.println(buf.toString());
+					try {
+						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e4.printStackTrace();
+					}
+					try {
+						Thread.sleep((long) 3000.0);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					System.exit(0);
+				}
 
 				String heading = textField.getText().trim();
 
@@ -119,6 +171,38 @@ public class DevWindow {
 
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				OptionsController oc = new OptionsController();
+				dbc = DatabaseController.getDBController();
+				@SuppressWarnings("unused")
+				Connection conn = null;
+				String connectString = dbc.buildConnectionString();				
+				
+				try {
+					conn = DriverManager.getConnection(connectString);
+					oc.getProp().setProperty("offlineMode", "false");
+					oc.saveProperties();
+				} catch (SQLException e1) {
+					StringBuffer buf = new StringBuffer();
+					buf.append("There was a problem with the following connection string: ");
+					buf.append(connectString);
+					buf.append("\n\nHere is the exceptio:\n");
+					buf.append(e.toString());
+					System.out.println(buf.toString());
+					try {
+						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					try {
+						Thread.sleep((long) 3000.0);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					System.exit(0);
+				}
 
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
@@ -180,7 +264,39 @@ public class DevWindow {
 
 		btnSendMessage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
+				OptionsController oc = new OptionsController();
+				dbc = DatabaseController.getDBController();
+				@SuppressWarnings("unused")
+				Connection conn = null;
+				String connectString = dbc.buildConnectionString();
+
+				try {
+					conn = DriverManager.getConnection(connectString);
+					oc.getProp().setProperty("offlineMode", "false");
+					oc.saveProperties();
+				} catch (SQLException e3) {
+					StringBuffer buf = new StringBuffer();
+					buf.append("There was a problem with the following connection string: ");
+					buf.append(connectString);
+					buf.append("\n\nHere is the exceptio:\n");
+					buf.append(e.toString());
+					System.out.println(buf.toString());
+					try {
+						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e3.printStackTrace();
+					}
+					try {
+						Thread.sleep((long) 3000.0);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					System.exit(0);
+				}
+
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 					String sentMessage = textArea_1.getText().trim();
 
@@ -224,7 +340,7 @@ public class DevWindow {
 
 					oc.getProp().setProperty("devMode", "false");
 					oc.saveProperties();
-					System.exit(0);
+
 				}
 
 			}
@@ -249,47 +365,81 @@ public class DevWindow {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				OptionsController oc = new OptionsController();
+				dbc = DatabaseController.getDBController();
+				@SuppressWarnings("unused")
+				Connection conn = null;
+				String connectString = dbc.buildConnectionString();
+
+				try {
+					conn = DriverManager.getConnection(connectString);
+					oc.getProp().setProperty("offlineMode", "false");
+					oc.saveProperties();
+				} catch (SQLException e5) {
+					StringBuffer buf = new StringBuffer();
+					buf.append("There was a problem with the following connection string: ");
+					buf.append(connectString);
+					buf.append("\n\nHere is the exceptio:\n");
+					buf.append(e.toString());
+					System.out.println(buf.toString());
+					try {
+						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e5.printStackTrace();
+					}
+					try {
+						Thread.sleep((long) 3000.0);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					System.exit(0);
+				}
+
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 					String seed = txtend.getText().trim();
 					List<String> list = Arrays.asList(seed.split(","));
 					String start = "broken";
 					String ending = "broken";
-					if(list.size() > 1) {
-						
+					if (list.size() > 1) {
+
 						start = list.get(0).trim();
 						ending = list.get(1).trim();
 					}
 					boolean isTooBig = false;
-					
+
 					try {
-						
+
 						int localEnding = Integer.parseInt(ending);
 						int bankSize = dbc.getNumberOfMessages().getNumber();
-						if(localEnding > bankSize) {
-							
+						if (localEnding > bankSize) {
+
 							isTooBig = true;
 						}
-					} catch(NumberFormatException ex) {
+					} catch (NumberFormatException ex) {
 						try {
-							
+
 							int localStart = Integer.parseInt(start);
 							int bankSize = dbc.getNumberOfMessages().getNumber();
-							if(localStart > bankSize) {
-								
+							if (localStart > bankSize) {
+
 								isTooBig = true;
 							}
-						} catch(NumberFormatException ex2) {
-							
-							
+						} catch (NumberFormatException ex2) {
+
 						}
 					}
-					
-					if (((Pattern.matches("[0-9]+", start)) && (Pattern.matches("[0-9]+", ending) || ending.equals("end"))) && Integer.parseInt(start) > 0 && !isTooBig) {
 
-							txtend.setText(seed + " Success!");
-							dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
-							lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + "," + dbc.getMessPoolSeed().getEnding());
+					if (((Pattern.matches("[0-9]+", start))
+							&& (Pattern.matches("[0-9]+", ending) || ending.equals("end")))
+							&& Integer.parseInt(start) > 0 && !isTooBig) {
+
+						txtend.setText(seed + " Success!");
+						dbc.updateMessPoolSeed(new MessPoolSeed(Integer.parseInt(start), ending));
+						lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + ","
+								+ dbc.getMessPoolSeed().getEnding());
 
 					} else {
 
@@ -315,6 +465,38 @@ public class DevWindow {
 		JButton btnNewButton_2 = new JButton("Drop Nukes");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				OptionsController oc = new OptionsController();
+				dbc = DatabaseController.getDBController();
+				@SuppressWarnings("unused")
+				Connection conn = null;
+				String connectString = dbc.buildConnectionString();
+
+				try {
+					conn = DriverManager.getConnection(connectString);
+					oc.getProp().setProperty("offlineMode", "false");
+					oc.saveProperties();
+				} catch (SQLException e) {
+					StringBuffer buf = new StringBuffer();
+					buf.append("There was a problem with the following connection string: ");
+					buf.append(connectString);
+					buf.append("\n\nHere is the exceptio:\n");
+					buf.append(e.toString());
+					System.out.println(buf.toString());
+					try {
+						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						Thread.sleep((long) 3000.0);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					System.exit(0);
+				}
 
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
@@ -360,17 +542,75 @@ public class DevWindow {
 		chckbxNewCheckBox_1.setBounds(10, 328, 75, 23);
 		chckbxNewCheckBox_1.setSelected(Boolean.valueOf(oc.getProp().getProperty("initBoot")));
 		frame.getContentPane().add(chckbxNewCheckBox_1);
-		
+
 		lblNewLabel_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
-			
-			lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + "," + dbc.getMessPoolSeed().getEnding());
+
+			lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + ","
+					+ dbc.getMessPoolSeed().getEnding());
 		} else {
-			
-			lblNewLabel_1.setText("OFFLINE! N/A" );
+
+			lblNewLabel_1.setText("OFFLINE! N/A");
 		}
-		
+
 		lblNewLabel_1.setBounds(484, 297, 383, 21);
 		frame.getContentPane().add(lblNewLabel_1);
+
+		JButton btnNewButton = new JButton("Refresh");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				OptionsController oc = new OptionsController();
+				dbc = DatabaseController.getDBController();
+				@SuppressWarnings("unused")
+				Connection conn = null;
+				String connectString = dbc.buildConnectionString();
+
+				try {
+					conn = DriverManager.getConnection(connectString);
+					oc.getProp().setProperty("offlineMode", "false");
+					oc.saveProperties();
+				} catch (SQLException e) {
+					StringBuffer buf = new StringBuffer();
+					buf.append("There was a problem with the following connection string: ");
+					buf.append(connectString);
+					buf.append("\n\nHere is the exceptio:\n");
+					buf.append(e.toString());
+					System.out.println(buf.toString());
+					try {
+						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						Thread.sleep((long) 3000.0);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					System.exit(0);
+				}
+
+				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
+
+					try {
+
+						lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + ","
+								+ dbc.getMessPoolSeed().getEnding());
+					} catch (NullPointerException e) {
+
+						lblNewLabel_1.setText("OFFLINE! N/A");
+						e.printStackTrace();
+					}
+				} else {
+
+					lblNewLabel_1.setText("OFFLINE! N/A");
+				}
+
+			}
+		});
+		btnNewButton.setBounds(394, 328, 89, 23);
+		frame.getContentPane().add(btnNewButton);
 	}
 }

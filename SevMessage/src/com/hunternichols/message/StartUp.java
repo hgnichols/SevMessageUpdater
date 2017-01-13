@@ -23,7 +23,8 @@ public class StartUp {
 		
 		try{
 		    PrintWriter writer = new PrintWriter(inStartUpFiles);
-		    writer.println("wscript.exe \"C:\\Users\\Hunter\\Documents\\SevMessageConfig\\invisible.vbs\" \"C:\\Users\\Hunter\\Documents\\SevMessageConfig\\SevMessage.exe");
+		    writer.println("cd C:\\Windows\\System32");
+		    writer.println("wscript.exe \"" + System.getProperty("user.home") + File.separator +"Documents\\SevMessageConfig\\invisible.vbs\" \"" + System.getProperty("user.home") + File.separator + "Documents\\SevMessageConfig\\SevMessage.exe\"");
 		    writer.close();
 
 		    writer = new PrintWriter(invisibleMaker);
@@ -31,10 +32,10 @@ public class StartUp {
 		    writer.close();
 		    
 		    writer = new PrintWriter(offlineMessageBank);
-		    writer.println("Merry Christmas Me'Lady (late I know but who cares)");
-		    writer.println("I Loves your bannana face (not racist yo)");
-		    writer.println("You are my favorite little girl :). I am not pedo I swear. IIII WILLLLL ALLLLLLWAAAAYS LOOOOVEEE YOUUUUUU.");
-		    writer.println("I love you more than I love video games");
+		    writer.println("Merry Christmas Me'Lady (late I know but who cares)" + "¥" + 
+		    "I Loves your bannana face (not racist yo)" + "¥" + 
+		    "You are my favorite little girl :). I am not pedo I swear. IIII WILLLLL ALLLLLLWAAAAYS LOOOOVEEE YOUUUUUU." + "¥" + 
+		    "I love you more than I love video games");
 		    writer.close();
 		} catch (IOException e) {
 		   

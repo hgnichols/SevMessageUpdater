@@ -117,7 +117,7 @@ public class DatabaseController implements DatabaseConstants{
 	}
 
 	/** DATABASE CONNECTION CODE **********************/
-	private Connection createDatabaseConnection() {
+	public Connection createDatabaseConnection() {
 		OptionsController oc = new OptionsController();	
 		Connection conn = null;
 		String connectString = buildConnectionString();

@@ -49,6 +49,8 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 
 				// start new window here
+				oc = new OptionsController();
+
 				initWindow();
 			}
 		});
@@ -100,13 +102,12 @@ public class MainWindow extends javax.swing.JFrame {
 
 		Message messageObj = new Message();
 		String message = messageObj.getRandomMessage();
-		OptionsController  oc = new OptionsController();
+		OptionsController oc = new OptionsController();
 		DatabaseController dbc = null;
-		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
-			dbc = DatabaseController.getDBController();
-		} 
+		dbc = DatabaseController.getDBController();
 
+		jLabel2 = new javax.swing.JLabel();
 		jLabel1 = new javax.swing.JLabel();
 		jButton1 = new javax.swing.JButton();
 		jButton1.addActionListener(new ActionListener() {
@@ -119,21 +120,24 @@ public class MainWindow extends javax.swing.JFrame {
 		jButton2 = new javax.swing.JButton();
 		jButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				OptionsController oc = new OptionsController();
 				String messageUpdate = null;
 				Message messageObjUpdate = new Message();
 				if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
-					
+
 					messageUpdate = messageObjUpdate.getRandomMessage();
+					DatabaseController dbc = DatabaseController.getDBController();
+					jLabel2.setText(dbc.getHeading().getHeading());
 				} else {
-					
-					 messageUpdate = messageObjUpdate.getRandomMessage();
+
+					messageUpdate = messageObjUpdate.getRandomMessage();
+					jLabel2.setText("OFFLINE! But I still love you though ;)");
+
 				}
 
 				jLabel1.setText("<html><p><center>" + messageUpdate + "</p></center> </html>");
 			}
 		});
-
-		jLabel2 = new javax.swing.JLabel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		setTitle("I just plain out love you");

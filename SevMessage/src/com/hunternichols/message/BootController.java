@@ -80,12 +80,6 @@ public class BootController {
 				Runtime.getRuntime().addShutdownHook(shutdown);
 
 				// program goes here
-				if (Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
-					
-					OfflineWindowInfo offline = new OfflineWindowInfo();
-					offline.setVisible(true);
-				}
-				
 				MessageFrequencyController messageFrequency = new MessageFrequencyController("FrequencyThread");
 				messageFrequency.start();
 
