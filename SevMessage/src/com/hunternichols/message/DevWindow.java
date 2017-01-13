@@ -97,6 +97,29 @@ public class DevWindow {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+		JLabel lblNewLabel_2 = new JLabel("Total Number Of Messages:");
+		lblNewLabel_2.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		lblNewLabel_2.setBounds(10, 163, 159, 17);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		JLabel label_1 = new JLabel(Integer.toString(dbc.getNumberOfMessages().getNumber()));
+		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		label_1.setBounds(10, 181, 149, 17);
+		frame.getContentPane().add(label_1);
+		
+		JLabel lblCurrentHeading = new JLabel("Current Heading:");
+		lblCurrentHeading.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCurrentHeading.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		lblCurrentHeading.setBounds(22, 277, 147, 17);
+		frame.getContentPane().add(lblCurrentHeading);
+		
+		JLabel lblHowdy = new JLabel("You Give Me a Funny Feeling in My Tummy");
+		lblHowdy.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHowdy.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		lblHowdy.setBounds(22, 297, 411, 17);
+		frame.getContentPane().add(lblHowdy);
+		
 		JButton button = new JButton();
 		button.addActionListener(new ActionListener() {
 
@@ -134,8 +157,8 @@ public class DevWindow {
 					System.exit(0);
 				}
 
-				String heading = textField.getText().trim();
-
+				String heading = textField.getText().trim();				
+				
 				if (heading.length() > 50) {
 
 					textField.setText("ERROR TOO MANY CHARACTERS! " + heading);
@@ -151,6 +174,7 @@ public class DevWindow {
 					}
 
 				}
+				lblHowdy.setText(dbc.getHeading().getHeading());
 			}
 		});
 
@@ -208,7 +232,7 @@ public class DevWindow {
 
 					dbc = DatabaseController.getDBController();
 				}
-
+				
 				String messageText = textArea.getText().trim();
 				if (messageText.length() > 200) {
 
@@ -226,7 +250,8 @@ public class DevWindow {
 					}
 
 				}
-			}
+				label_1.setText(Integer.toString(dbc.getNumberOfMessages().getNumber()));
+			}		
 		});
 
 		button_1.setText("Add Message");
@@ -598,6 +623,13 @@ public class DevWindow {
 
 						lblNewLabel_1.setText("Current MessPoolSeed: " + dbc.getMessPoolSeed().getStart() + ","
 								+ dbc.getMessPoolSeed().getEnding());
+						label_1.setText(Integer.toString(dbc.getNumberOfMessages().getNumber()));
+						lblHowdy.setText(dbc.getHeading().getHeading());
+						textArea.setText("");
+						textArea_1.setText("");
+						textField.setText("");
+						txtend.setText("");
+						
 					} catch (NullPointerException e) {
 
 						lblNewLabel_1.setText("OFFLINE! N/A");
