@@ -143,7 +143,7 @@ public class DevWindow {
 					buf.append(e.toString());
 					System.out.println(buf.toString());
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e4.printStackTrace();
@@ -214,7 +214,7 @@ public class DevWindow {
 					buf.append(e.toString());
 					System.out.println(buf.toString());
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -308,7 +308,7 @@ public class DevWindow {
 					buf.append(e.toString());
 					System.out.println(buf.toString());
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e3.printStackTrace();
@@ -408,7 +408,7 @@ public class DevWindow {
 					buf.append(e.toString());
 					System.out.println(buf.toString());
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e5.printStackTrace();
@@ -509,7 +509,7 @@ public class DevWindow {
 					buf.append(e.toString());
 					System.out.println(buf.toString());
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -604,7 +604,7 @@ public class DevWindow {
 					buf.append(e.toString());
 					System.out.println(buf.toString());
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -666,7 +666,7 @@ public class DevWindow {
 					buf.append(e.toString());
 					System.out.println(buf.toString());
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

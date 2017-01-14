@@ -55,7 +55,7 @@ public class RefreshRateController implements Runnable {
 					
 					//execute the jar
 					try {
-						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+						Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar\"");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -93,7 +93,7 @@ public class RefreshRateController implements Runnable {
 
 				//put stuff to execute jar here
 				try {
-					Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "PopUpWindow.jar");
+					Runtime.getRuntime().exec("javaw -jar \"" + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "PopUpWindow.jar\"");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
