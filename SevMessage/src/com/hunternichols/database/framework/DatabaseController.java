@@ -51,7 +51,7 @@ public class DatabaseController implements DatabaseConstants{
 	}
 	private String getDatabaseServerURL() {
 		if (databaseServerURL == null){
-			databaseServerURL = "localhost";
+			databaseServerURL = "HGNICHOLS\\MSSQLSERVER2012";
 		}
 		return databaseServerURL;
 	}

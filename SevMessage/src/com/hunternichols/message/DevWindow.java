@@ -582,6 +582,7 @@ public class DevWindow {
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JButton btnNewButton = new JButton("Refresh");
+		btnNewButton.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -642,7 +643,55 @@ public class DevWindow {
 
 			}
 		});
-		btnNewButton.setBounds(394, 328, 89, 23);
+		btnNewButton.setBounds(385, 329, 89, 23);
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_3 = new JButton("Refresh Offline MBank");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				@SuppressWarnings("unused")
+				Connection conn = null;
+				String connectString = dbc.buildConnectionString();
+
+				try {
+					conn = DriverManager.getConnection(connectString);
+					oc.getProp().setProperty("offlineMode", "false");
+					oc.saveProperties();
+				} catch (SQLException e) {
+					StringBuffer buf = new StringBuffer();
+					buf.append("There was a problem with the following connection string: ");
+					buf.append(connectString);
+					buf.append("\n\nHere is the exceptio:\n");
+					buf.append(e.toString());
+					System.out.println(buf.toString());
+					try {
+						Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "NowOfflineWindow.jar");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						Thread.sleep((long) 3000.0);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					System.exit(0);
+				}
+				File file = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "offlineMessageBank.txt");
+				file.delete();
+				
+				if (!StartUp.exists()) {
+
+					StartUp.create();
+				}
+				
+				
+			}
+		});
+		btnNewButton_3.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
+		btnNewButton_3.setBounds(494, 329, 165, 23);
+		frame.getContentPane().add(btnNewButton_3);
 	}
 }

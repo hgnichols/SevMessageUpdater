@@ -91,8 +91,13 @@ public class RefreshRateController implements Runnable {
 			}			
 			if (checker != null && checker.getSendMessage() == 1) {
 
-				PopUpWindow popUp = new PopUpWindow();
-				popUp.setVisible(true);
+				//put stuff to execute jar here
+				try {
+					Runtime.getRuntime().exec("javaw -jar " + System.getProperty("user.home") + File.separator + "Documents" + File.separator + "SevMessageConfig" + File.separator + "PopUpWindow.jar");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				checker.setSendMessage(0);
 				dbc.updateUpdate(checker);
 

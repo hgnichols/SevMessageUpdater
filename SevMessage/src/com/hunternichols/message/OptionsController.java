@@ -17,7 +17,7 @@ public class OptionsController {
 	private final String configFileDir = System.getProperty("user.home") + File.separator + "Documents" + File.separator
 			+ "SevMessageConfig";
 	Properties prop;
-	private final String version = "0.2.0";
+	private final String version = "0.5.0";
 
 	public OptionsController() {
 
@@ -118,7 +118,7 @@ public class OptionsController {
 			e.printStackTrace();
 		}
 		try {
-			this.getProp().store(out, "---Beta!---");
+			this.getProp().store(out, "---Beta! Testing Time!---");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
