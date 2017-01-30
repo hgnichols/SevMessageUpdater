@@ -78,7 +78,8 @@ public class BootController {
 				});
 
 				Runtime.getRuntime().addShutdownHook(shutdown);
-
+				
+				oc = new OptionsController();
 				// program goes here
 				MessageFrequencyController messageFrequency = new MessageFrequencyController("FrequencyThread");
 				messageFrequency.start();

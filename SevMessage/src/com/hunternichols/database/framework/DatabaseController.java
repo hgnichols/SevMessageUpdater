@@ -33,13 +33,13 @@ public class DatabaseController implements DatabaseConstants{
 	}
 	private String getUserName() {
 		if (userName == null){
-			userName = "sa";
+			userName = "hgnichols@hunternichols";
 		}
 		return userName;
 	}
 	private String getPassword() {
 		if (password == null){
-			password = "itcs3160";
+			password = "2698Dr80!";
 		}
 		return password;
 	}
@@ -51,7 +51,7 @@ public class DatabaseController implements DatabaseConstants{
 	}
 	private String getDatabaseServerURL() {
 		if (databaseServerURL == null){
-			databaseServerURL = "HGNICHOLS\\MSSQLSERVER2012";
+			databaseServerURL = "hunternichols.database.windows.net";
 		}
 		return databaseServerURL;
 	}
@@ -63,7 +63,7 @@ public class DatabaseController implements DatabaseConstants{
 	}
 	private String getPortNumber() {
 		if (portNumber == null){
-			portNumber = "54173";
+			portNumber = "1433";
 		}
 		return portNumber;
 	}
@@ -164,6 +164,7 @@ public class DatabaseController implements DatabaseConstants{
 		buf.append(getUserName());
 		buf.append(";password=");
 		buf.append(getPassword());
+		buf.append(";encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
 		return buf.toString();
 	}
 

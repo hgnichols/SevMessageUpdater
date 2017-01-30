@@ -17,7 +17,7 @@ public class OptionsController {
 	private final String configFileDir = System.getProperty("user.home") + File.separator + "Documents" + File.separator
 			+ "SevMessageConfig";
 	Properties prop;
-	private final String version = "0.5.0";
+	private final String version = "0.7.3";
 
 	public OptionsController() {
 
@@ -51,6 +51,9 @@ public class OptionsController {
 			
 			deleteProperties();
 			createProp();
+			OptionsController oc = new OptionsController();
+			oc.getProp().setProperty("toBePatched", "true");
+			oc.saveProperties();
 		}
 		
 		return prop;
@@ -89,6 +92,8 @@ public class OptionsController {
 			bw.write("devMode=false");
 			bw.newLine();
 			bw.write("offlineMode=false");
+			bw.newLine();
+			bw.write("toBePatched=false");
 		} catch (IOException e) {
 
 			e.printStackTrace();
