@@ -17,7 +17,7 @@ public class OptionsController {
 	private final String configFileDir = System.getProperty("user.home") + File.separator + "Documents" + File.separator
 			+ "SevMessageConfig";
 	Properties prop;
-	private final String version = "0.7.3";
+	private final String version = "0.7.8";
 
 	public OptionsController() {
 

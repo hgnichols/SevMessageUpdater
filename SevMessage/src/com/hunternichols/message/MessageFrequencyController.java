@@ -29,7 +29,7 @@ public class MessageFrequencyController implements Runnable {
 					
 					frameSize = pathNotes.txtrHelloTheLove.getBounds();
 					pathNotes.txtrHelloTheLove.setBounds(frameSize.x, frameSize.y, 426, 205);
-					pathNotes.txtrHelloTheLove.setText("-Misc Bug Fixes\n-Moved offlineMBank Refresh Button into options window\n-Added Patch Notes Window :)");
+					pathNotes.txtrHelloTheLove.setText("-Misc Bug Fixes\n-Fixed patch widnow poping up every time\n-Fixed Pop-Up Message\n-*IMPORTANT* Every update resets your settings. So Please go change them!");
 					pathNotes.lblNewLabel.setText("Beta Testing Version: " + oc.getProp().getProperty("version") + " Patch Notes (please read)");
 					pathNotes.setVisible(true);
 					

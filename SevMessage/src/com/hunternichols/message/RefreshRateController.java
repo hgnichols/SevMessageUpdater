@@ -28,6 +28,7 @@ public class RefreshRateController implements Runnable {
 	@Override
 	public void run() {
 
+		System.out.println("Refresh started");
 		oc = new OptionsController();
 		boolean on = true;
 		@SuppressWarnings("unused")
