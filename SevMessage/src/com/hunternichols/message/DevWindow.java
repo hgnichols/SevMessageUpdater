@@ -479,7 +479,7 @@ public class DevWindow {
 		});
 
 		btnNewButton_1.setFont(new Font("Microsoft Yi Baiti", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(484, 270, 149, 23);
+		btnNewButton_1.setBounds(484, 270, 165, 23);
 		frame.getContentPane().add(btnNewButton_1);
 
 		JLabel lblNewLabel = new JLabel("(\"end\" for last message, ex. 1,end)");

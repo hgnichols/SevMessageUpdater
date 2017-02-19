@@ -412,48 +412,6 @@ public class DatabaseController implements DatabaseConstants{
 		return rs;
 	}
 	
-	public Customer getCustomerByID(String custID){
-		/**
-		 * Returns a Customer object for the customer ID
-		 * passed in
-		 */
-		Customer c = null;
-		ResultSet rs = null;
-		ArrayList<NameValuePair> nvps = new ArrayList<>();
-		nvps.add(new NameValuePair(COLUMN_CUSTOMER_ID, custID));
-		rs = executeStoredProcedure(SP_GET_CUSTOMER_BY_ID, nvps);
-		try {
-			if (rs.next()){
-				c = getObjectBuilder().createCustomer(rs);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return c;
-	}
-	
-	public void updateCustomer(Customer c){
-		ArrayList<NameValuePair> nvpList = new ArrayList<>();
-		nvpList.add(new NameValuePair(COLUMN_CUSTOMER_ID, Integer.toString(c.getID())));
-		nvpList.add(new NameValuePair(COLUMN_CUSTOMER_FIRST_NAME, c.getFirstName()));
-		nvpList.add(new NameValuePair(DatabaseConstants.COLUMN_CUSTOMER_LAST_NAME, c.getLastName()));
-		executeCUDStoredProcedure(SP_UPDATE_CUSTOMER, nvpList);
-	}
-
-	public void addCustomer(Customer c){
-		ArrayList<NameValuePair> nvpList = new ArrayList<>();
-		nvpList.add(new NameValuePair(COLUMN_CUSTOMER_ID, Integer.toString(c.getID())));
-		nvpList.add(new NameValuePair(COLUMN_CUSTOMER_FIRST_NAME, c.getFirstName()));
-		nvpList.add(new NameValuePair(DatabaseConstants.COLUMN_CUSTOMER_LAST_NAME, c.getLastName()));
-		executeCUDStoredProcedure(SP_ADD_CUSTOMER, nvpList);
-	}
-
-	public void deleteCustomer(Customer c){
-		ArrayList<NameValuePair> nvpList = new ArrayList<>();
-		nvpList.add(new NameValuePair(COLUMN_CUSTOMER_ID, Integer.toString(c.getID())));
-		executeCUDStoredProcedure(SP_DELETE_CUSTOMER, nvpList);
-	}
-	
 	public Message getMessageByID(String number){
 
 		Message m = null;

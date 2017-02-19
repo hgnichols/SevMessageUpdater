@@ -1,6 +1,5 @@
 package com.hunternichols.database.framework;
 
-import com.hunternichols.database.dataobjects.Customer;
 import com.hunternichols.database.dataobjects.Heading;
 import com.hunternichols.database.dataobjects.MessPoolSeed;
 import com.hunternichols.database.dataobjects.Message;
@@ -23,19 +22,6 @@ public class ObjectBuilder {
 			objBuilder = new ObjectBuilder();
 		}
 		return objBuilder;
-	}
-
-	public Customer createCustomer(ResultSet rs) {
-		Customer c = null;
-		try {
-			int custID = rs.getInt(DatabaseConstants.COLUMN_CUSTOMER_ID);
-			String fName = rs.getString(DatabaseConstants.COLUMN_CUSTOMER_FIRST_NAME);
-			String lName = rs.getString(DatabaseConstants.COLUMN_CUSTOMER_LAST_NAME);
-			c = new Customer(custID, fName, lName);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return c;
 	}
 
 	public Message createMessage(ResultSet rs) {
