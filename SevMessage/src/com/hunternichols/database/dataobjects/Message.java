@@ -54,6 +54,7 @@ public class Message {
 	 * Sets the message (max 250 characters)
 	 * 
 	 * @param message
+	 *            The string that represents the message to be displayed.
 	 */
 	public void setMessage(String message) {
 		this.message = message;
@@ -63,6 +64,7 @@ public class Message {
 	 * Sets the number of the message in the SQL table
 	 * 
 	 * @param number
+	 *            The number of the message in the DB table.
 	 */
 	public void setNumber(int number) {
 		this.number = number;
@@ -70,6 +72,7 @@ public class Message {
 
 	/**
 	 * Getter for the message
+	 * 
 	 * @return message The actual message
 	 */
 	public String getMessage() {
@@ -78,20 +81,23 @@ public class Message {
 
 	/**
 	 * Getter for the number of the message in the SQL table
-	 * @return
+	 * 
+	 * @return number - similar to the ID of the message
 	 */
 	public int getNumber() {
 		return number;
 	}
 
 	/**
-	 * Gets a random message from the SQL table Messages and returns the Message object with the information from the DB.
-	 * Has offline handling, where if online it creates the offline message bank with no messages.
+	 * Gets a random message from the SQL table Messages and returns the Message
+	 * object with the information from the DB. Has offline handling, where if
+	 * online it creates the offline message bank with no messages.
+	 * 
 	 * @return message The message object with the information from the DB
 	 */
 	public String getRandomMessage() {
 		OptionsController oc = new OptionsController();
-		//offline handling
+		// offline handling
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
 			dbc = DatabaseController.getDBController();
@@ -102,27 +108,36 @@ public class Message {
 
 		if (!Boolean.parseBoolean(oc.getProp().getProperty("offlineMode"))) {
 
+			// checks for the word 'end'
 			if (dbc.getMessPoolSeed().getEnding().equals("end")) {
-				//gets the total number of messages in the message bank
+				// gets the total number of messages in the message bank
 				count = dbc.getNumberOfMessages().getNumber();
 			} else {
 
+				// otherwise it should be a number
 				count = Integer.parseInt(dbc.getMessPoolSeed().getEnding());
 			}
 
 			Random rand = new Random();
 
+			/*
+			 * gets a random number based on the start and end of the specified
+			 * range
+			 */
 			int randNum = rand.nextInt((count - dbc.getMessPoolSeed().getStart()) + 1)
 					+ dbc.getMessPoolSeed().getStart();
 
+			// get the message by the random ID
 			message = dbc.getMessageByID(Integer.toString(randNum)).getMessage();
 		} else {
 
+			// This is if the program is offline
 			FileInputStream fs = null;
 			String array[] = null;
 			Random rand = new Random();
 			int randomNumber;
 
+			// file should be already created at first program start up
 			try {
 				fs = new FileInputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator
 						+ "SevMessageConfig" + File.separator + "offlineMessageBank.txt");
@@ -132,6 +147,8 @@ public class Message {
 			}
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+			// The file is separated by the '¥' and is completely read into an
+			// array
 			try {
 				array = br.readLine().split("¥");
 			} catch (IOException e) {
@@ -139,6 +156,8 @@ public class Message {
 				e.printStackTrace();
 			}
 
+			// picks a message randomly (ignores MessPoolSeed it does not matter
+			// offline)
 			randomNumber = rand.nextInt(array.length);
 
 			message = array[randomNumber];
@@ -147,6 +166,10 @@ public class Message {
 		return message;
 	}
 
+	/**
+	 * To String method for debugging purposes. Prints out all parts of the
+	 * object.
+	 */
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("Number:\t");

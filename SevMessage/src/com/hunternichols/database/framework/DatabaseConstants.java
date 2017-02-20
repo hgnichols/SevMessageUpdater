@@ -1,7 +1,14 @@
 package com.hunternichols.database.framework;
 
+/**
+ * Constants for databases columns and stored procedures. All credit for the
+ * structure goes to Thomas Polk, but I added many of my own constants
+ * 
+ * @author Thomas Polk at the University of North Carolina at Charlotte.
+ *
+ */
 public interface DatabaseConstants {
-	//STORED PROCEDURE NAMES
+	// STORED PROCEDURE NAMES
 	public static final String SP_GET_CAR_BY_ID = "procGetCarByID";
 	public static final String SP_GET_CUSTOMER_BY_ID = "procGetCustomerByID";
 	public static final String SP_ADD_CUSTOMER = "procAddCustomer";
@@ -23,8 +30,8 @@ public interface DatabaseConstants {
 	public static final String SP_UPDATE_SENDMESSAGE = "procUpdateSendMessage";
 	public static final String SP_GET_MESSPOOLSEED = "procGetMessPoolSeed";
 	public static final String SP_UPDATE_MESSPOOLSEED = "procUpdateMessPoolSeed";
-	
-	//COLUMN NAMES
+
+	// COLUMN NAMES
 	public static final String COLUMN_VEHICLE_ID = "VehicleID";
 	public static final String COLUMN_CUSTOMER_ID = "ID";
 	public static final String COLUMN_CUSTOMER_FIRST_NAME = "FirstName";
@@ -46,8 +53,8 @@ public interface DatabaseConstants {
 	public static final String COLUMN_MESSPOOLSEED_ID = "ID";
 	public static final String COLUMN_MESSPOOLSEED_START = "Start";
 	public static final String COLUMN_MESSPOOLSEED_ENDING = "Ending";
-	
-	//PARAMETER NAMES
+
+	// PARAMETER NAMES
 	public static final String PARAM_LOW_VALUE = "LowVal";
 	public static final String PARAM_HIGH_VALUE = "HighVal";
 }
