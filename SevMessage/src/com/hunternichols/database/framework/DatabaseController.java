@@ -13,7 +13,7 @@ import com.hunternichols.message.OptionsController;
  *
  */
 public class DatabaseController implements DatabaseConstants {
-	/** VARIABLE DECLARATIONS *************************/
+	//VARIABLE DECLARATIONS
 	private Connection dbConnection = null;
 	private String userName = null;
 	private String password = null;
@@ -25,7 +25,7 @@ public class DatabaseController implements DatabaseConstants {
 	private ObjectBuilder objectBuilder = null;
 	private DatabaseMetaData dbMetaData = null;
 
-	/** GETTERS AND SETTERS *************************/
+	//GETTERS AND SETTERS
 	/**
 	 * 
 	 * @return
